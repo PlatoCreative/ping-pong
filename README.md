@@ -1,2 +1,3 @@
-ping-pong
-=========
+# pingpong
+
+a [Sails](http://sailsjs.org) application
