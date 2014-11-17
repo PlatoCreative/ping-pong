@@ -10,6 +10,7 @@
 
     var player_queue = [];
     var can_add_player = false;
+    var loaded_players = [];
 
     var current_animated_player;
 
@@ -93,8 +94,11 @@
         if(player_queue.length && can_add_player){
             can_add_player = false;
             this.animatePlayer(player_queue[0]);
+            loaded_players.push(player_queue[0]);
             player_queue.splice(0, 1);
         }
+
+
     }
 
     _player_loader.animatePlayer = function(player){
@@ -165,7 +169,14 @@
     }
 
     _player_loader.clearPlayer = function(){
+       
 
+        if(loaded_players.length == _num_players){
+
+            var playersAddedEvent = new createjs.Event("playersAdded");
+            playersAddedEvent.players = loaded_players;
+            this.dispatchEvent(playersAddedEvent);
+        }
         current_animated_player.removeAllChildren();
         current_animated_player.alpha = 1;
         can_add_player = true;

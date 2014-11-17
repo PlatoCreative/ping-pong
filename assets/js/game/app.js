@@ -8,6 +8,9 @@
     var intro;
     var menu;
 
+    var winning_score = 11;
+
+
     var gameMode = '';
     var numberPlayers = 0;
     var players = [
@@ -66,6 +69,15 @@
         stage.addChild(intro);            
     }
 
+    this.onPlayersAdded = function(e){  
+
+        var gameView = new GameView(e.players, winning_score);
+        stage.addChild(gameView);
+
+        stage.removeChild(e.target);
+
+    }
+
     this.startGame = function(gameType){
 
         if(gameType == 'Singles'){
@@ -78,6 +90,7 @@
 
         var playerLoader = new PlayerLoader(numberPlayers);
         stage.addChild(playerLoader);
+        playerLoader.on("playersAdded", onPlayersAdded);
 
 
     }
