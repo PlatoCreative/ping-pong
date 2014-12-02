@@ -32,6 +32,8 @@ function reset(){
     team2clock.setTime(0);
     team1Score = 0;
     team2Score = 0;
+
+    soundLibrary.playSoundEvent('start');
 }
 
 function settings(){
@@ -70,8 +72,12 @@ function start() {
         autoStart: false
     });
 
+    
     loadSoundLibarary('default');
     matchPointScore = gameWinningScore - 1;
+
+    soundLibrary.playSoundEvent('start');
+
 
     var deviceID = "53ff6a066667574811252067";
     var accessToken = "d42e7052ba5fa01bf62834495e34ab39369349ce";
@@ -155,7 +161,7 @@ function checkForSoundEvents(team, score){
         }
 
     }else{
-        pointStreak = 0;
+        pointStreak = 1;
         streakTeam = team;
     }
 
