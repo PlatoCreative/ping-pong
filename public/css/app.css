@@ -100,6 +100,17 @@ button{
   margin-top: 50px;
   padding: 20px 40px;
   font-weight: bold;
+  position: absolute;
+}
+#but{
+  left: 50%;
+  margin-left: -67px;
+  top:77%;
+}
+#reset{
+  left: 50%;
+  margin-left: -70px;
+  top:70%;
 }
 span.gamepoint{
   -webkit-animation-name: pulsate;

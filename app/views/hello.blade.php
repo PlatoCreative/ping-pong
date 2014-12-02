@@ -40,11 +40,11 @@
 			<div id="teamone"></div>
 		</div>
 
-		<button id="but" onclick="start()">Connect</button>
-		<button onclick="reset()">Reset Score</button>
-	
+			
 	</div>
 
+	<button id="but" onclick="start()">Connect</button>
+	<button id="reset" onclick="reset()">Reset Score</button>
 
 	@section('scripts')
 		{{ HTML::script('/js/jquery-2.1.1.min.js') }}
