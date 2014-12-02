@@ -20,6 +20,7 @@ body {
   background-color: #2e3f73;
   border: 20px solid #FFF;
   color: #FFF;
+  position: relative;
 }
 
 .left-top{
@@ -29,6 +30,9 @@ body {
   min-height: 520px;
   border-right: 5px solid #FFF;
   border-bottom: 5px solid #FFF;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .right-top{
@@ -37,6 +41,9 @@ body {
   height: 520px;
   min-height: 520px;
   border-bottom: 5px solid #FFF;
+  position: absolute;
+  top: 0;
+  left: 940px;
 }
 
 .left-bot{
@@ -45,6 +52,9 @@ body {
   height: 515px;
   min-height: 515px;
   border-right: 5px solid #FFF;
+  position: absolute;
+  top: 525px;
+  left: 0px;
 }
 
 .right-bot{
@@ -52,28 +62,48 @@ body {
   width: 940px;
   height: 515px;
   min-height: 515px;
-}
-
-
-
-
-
-
-.welcome {
-  width: 300px;
-  height: 200px;
   position: absolute;
-  left: 50%;
-  top: 50%;
-  margin-left: -150px;
-  margin-top: -100px;
+  top: 525px;
+  left: 940px;
 }
 
-a, a:visited {
-  text-decoration:none;
-}
 
-h1 {
-  font-size: 32px;
-  margin: 16px 0 0 0;
+
+
+
+@-webkit-keyframes pulsate {
+  0% { width:1px;height: 1px; opacity: 0.0}
+  10% { width:3px;height: 3px; opacity: .20}
+  20% { width:5px;height: 5px; opacity: .40 }
+  30% { width:7px;height: 7px; opacity: .60 }
+  40% { width:9px;height: 9px; opacity: .80 } 
+  50% { width:11px;height: 11px; opacity: 1.0}
+  60% { width:13px;height: 13px; opacity: .80}
+  70% { width:15px;height: 15px;  opacity: .60}
+  80% { width:17px;height: 17px;  opacity: .40}
+  90% { width:19px;height: 19px;  opacity: .20}
+  100% { width:21px;height: 21px;  opacity: 0.0}
+}
+span.gg{
+  margin-top: 100px;
+  display: block;
+  width: 50%;
+  text-align:center;
+  float: left;
+  font-size: 100px;
+}
+span>span{
+  font-size: 500px;
+  text-align:center;
+}
+button{
+  margin-top: 50px;
+  padding: 20px 40px;
+  font-weight: bold;
+}
+span.gamepoint{
+  -webkit-animation-name: pulsate;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-iteration-count: infinite
 }
