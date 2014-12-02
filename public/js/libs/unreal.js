@@ -39,7 +39,7 @@
 
         switch(eventName) {
             case 'score':
-                //score.play();
+                score.play();
                 break;
             case 'ace':
                 audioArray.push(headshotSound);
