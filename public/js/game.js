@@ -1,25 +1,55 @@
-var soundLibrary = new DefaultSound();
-
+var soundLibrary;
 var team1Score = 0;
 var team2Score = 0;
 
 var gameWinningScore = 21;
+var matchPointScore;
 var matchPointColor = '#ae0d0d';
 var gameWonColor = '#37f9ee';
+
+var soundPack = 'default';
 
 var team1 = $("#teamone");
 var team2 = $("#teamtwo");
 
 var team1clock;
 var team2clock;
+
+var pointStreak = 0;
+var streakTeam = -1;
+var timeOfLastPoint = 0;
       
+setInterval(onTick, 1000);
+var rallyFired = false;
+
+
+setInterval(playAudioQueue, 250);
+var audioArray = [];
+var isPlayingSound = false;
+
 function reset(){
     team1clock.setTime(0);
     team2clock.setTime(0);
     team1Score = 0;
     team2Score = 0;
 }
-      
+
+function settings(){
+    $('#settings').fadeIn(300);
+
+    $('#save-settings-button').click(function(){
+        $('#settings').fadeOut(300);
+
+        gameWinningScore = $('#game-score').val();
+        console.log(gameWinningScore);
+
+        matchPointScore = gameWinningScore - 1;
+
+        soundPack = $('#sound-pack').val();
+        loadSoundLibarary(soundPack);
+
+    });
+}   
 
 function start() {
         
@@ -40,7 +70,9 @@ function start() {
         autoStart: false
     });
 
-        
+    loadSoundLibarary('default');
+    matchPointScore = gameWinningScore - 1;
+
     var deviceID = "53ff6a066667574811252067";
     var accessToken = "d42e7052ba5fa01bf62834495e34ab39369349ce";
     var eventSource = new EventSource("https://api.spark.io/v1/devices/" + deviceID + "/events/?access_token=" + accessToken);
@@ -60,26 +92,8 @@ function start() {
         var parsedData = JSON.parse(e.data);
           
         console.log(parsedData.data);
-        teamScore(parsedData.data, 1);        
-          
-        
-          
-          // if(team1Score == 20){
-          //   document.getElementById("teamone").style.color = "red";
-          //   team1.className = team1.className + " gamepoint";
-          //   playFinish();
-          // }else{
-          //   team1.className = " ";
-          // }
-          
-          // if(team2Score == 20){
-          //   document.getElementById("teamtwo").style.color = "red";
-          //   team2.className = team2.className + " gamepoint";
-          //   playFinish();
-          // }else{
-          //   team2.className = " ";
-          // }
-          
+        teamScore(parsedData.data, 1);                
+   
           
           
     }, false);
@@ -100,17 +114,96 @@ function teamScore(team, score){
     team2clock.setTime(team2Score);
 
 
+    checkForSoundEvents(team, score);
     if(!checkForWinner()){
         checkForMatchPoint();
     }
+
+
+    var d = new Date();
+    timeOfLastPoint = d.getTime();
+    rallyFired = false;
+
     
     
 
 }
 
+function checkForSoundEvents(team, score){
+
+    //check for streaks
+    if(team == streakTeam || streakTeam == -1){
+        pointStreak += score;
+        streakTeam = team;
+
+        if(pointStreak == 2){
+            soundLibrary.playSoundEvent('double');
+        }else if(pointStreak == 3){
+            soundLibrary.playSoundEvent('triple');
+        }else if(pointStreak == 4){
+            soundLibrary.playSoundEvent('quadra');
+        }else if(pointStreak == 5){
+            soundLibrary.playSoundEvent('penta');
+        }else if(pointStreak == 6){
+            soundLibrary.playSoundEvent('hexa');
+        }else if(pointStreak == 7){
+            soundLibrary.playSoundEvent('hepta');
+        }else if(pointStreak == 8){
+            soundLibrary.playSoundEvent('octa');
+        }else if(pointStreak > 8){
+            soundLibrary.playSoundEvent('ultra');
+        }
+
+    }else{
+        pointStreak = 0;
+        streakTeam = team;
+    }
+
+
+    if((team1Score == 1 && team2Score == 0) || (team1Score == 0 && team2Score == 1)){
+        soundLibrary.playSoundEvent('firstpoint');
+    }
+
+
+
+
+    if(team1Score >= matchPointScore && team1Score > team2Score && team == 2){
+        soundLibrary.playSoundEvent('denied');
+    }
+    if(team2Score >= matchPointScore && team2Score > team1Score  && team == 1){
+        soundLibrary.playSoundEvent('denied');
+    }
+
+
+    //need to do logic for a comeback if you come from more than 3 behind
+
+    var d = new Date();
+    var nowTime = d.getTime();
+    if(nowTime - timeOfLastPoint < 3000){
+        soundLibrary.playSoundEvent('ace');
+    }
+
+
+}
+
+function onTick(){
+
+
+
+    var d = new Date();
+    var nowTime = d.getTime();
+
+    if(nowTime - timeOfLastPoint > 20000 && nowTime - timeOfLastPoint < 1417495970 && !rallyFired){
+        soundLibrary.playSoundEvent('rally');
+        console.log('rally');
+        rallyFired = true;
+    }
+
+}
+
 function checkForMatchPoint(){
 
-    var matchPointScore = gameWinningScore - 1;
+    
 
     $('#teamone .inn').velocity({color:'#ccc'}, {duration: 1000}).velocity("stop");
     $('#teamtwo .inn').velocity({color:'#ccc'}, {duration: 1000}).velocity("stop");
@@ -152,5 +245,38 @@ function checkForWinner(){
     }
 
     return false;
+
+}
+
+function loadSoundLibarary(type){
+
+    if(type == 'default'){
+        soundLibrary = new DefaultSound();
+    }else if(type == 'unreal'){
+        soundLibrary = new UnrealSound();
+    }else if(type == 'halo'){
+        soundLibrary = new HaloSound();
+    }
+}
+
+function playAudioQueue(){
+
+    //if item in the queue and not already playing a sound
+    if(audioArray.length > 0 && !isPlayingSound){
+
+        //play audio and set flag
+        audioArray[0].play();
+        isPlayingSound = true;
+
+        audioArray[0].bind("ended", function(e) {
+            //reset flag after finish playing audio
+            isPlayingSound = false;
+        });
+
+
+        audioArray.splice(0, 1);
+    }
+
+
 
 }

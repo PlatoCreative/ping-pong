@@ -45,16 +45,50 @@
 
 	<button id="but" onclick="start()">Connect</button>
 	<button id="reset" onclick="reset()">Reset Score</button>
+	<button id="settings-button" onclick="settings()">Settings</button>
+
+
+	<div id="settings">
+
+		<div class="setting-option">
+			<label for="game-score">Game score:
+				<select name="game-score" id="game-score">
+					<option value="5">5</option>
+					<option value="11">11</option>
+					<option value="21">21</option>
+				</select>
+			</label>
+		</div>
+
+		<div class="setting-option">
+			<label for="sound-pack">Sound pack:
+				<select name="sound-pack" id="sound-pack">
+					<option value="default">default</option>
+					<option value="unreal">Unreal Tournament</option>
+					<option value="halo">Halo</option>
+				</select>
+			</label>
+		</div>
+		
+		<div class="setting-option">
+			<button id="save-settings-button">Save</button>
+		</div>
+
+
+
+	</div>
 
 	@section('scripts')
 		{{ HTML::script('/js/jquery-2.1.1.min.js') }}
-		{{ HTML::script('/js/velocity.ui.min.js') }}
 		{{ HTML::script('/js/velocity.min.js') }}
+		{{ HTML::script('/js/velocity.ui.min.js') }}		
 		{{ HTML::script('/js/buzz.min.js') }}
 		{{ HTML::script('/js/flipclock.min.js') }}
 
 
 		{{ HTML::script('/js/libs/default.js') }}
+		{{ HTML::script('/js/libs/unreal.js') }}
+		{{ HTML::script('/js/libs/halo.js') }}
 
 		{{ HTML::script('/js/game.js') }}
 	@show

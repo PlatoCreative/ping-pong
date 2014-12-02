@@ -1,5 +1,5 @@
 (function (window) {
-    function DefaultSound() {
+    function HaloSound() {
         this.initialize();
     }
 
@@ -10,7 +10,7 @@
 
 
 
-    var _sound_class = DefaultSound.prototype;
+    var _sound_class = HaloSound.prototype;
 
     _sound_class.initialize = function (){
         console.log("Loaded sound class");
@@ -30,9 +30,9 @@
                 return;
         }
 
-
+        
     }
 
 
-    window.DefaultSound = DefaultSound;
+    window.HaloSound = HaloSound;
 } (window));
