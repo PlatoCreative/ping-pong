@@ -13,8 +13,7 @@
 
 Route::get('/', function()
 {
-	$players = Player::all();
-	
+	$players = Player::all();		
 	return View::make('game.create')->with('players', $players);
 });
 
@@ -27,6 +26,8 @@ Route::get('game/{game}', array('as' => 'game', 'uses' => 'GameController@index'
 // Route for updating game scores
 Route::post('game/{game}/score/{teamPos}', array('as' => 'game/score', 'uses' => 'GameController@updateGameScore'));
 
+// Mark game as completed/finished
+Route::get('game/end/{game}', array('as' => 'game/end', 'uses' => 'GameController@end'));
 
 
 // Route for creating users

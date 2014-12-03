@@ -39,7 +39,7 @@ class GameController extends BaseController {
 
   }
 
-  // get game/1/
+  // update the game score
   function updateGameScore($gameID, $teamPos){
 
     // find the current game
@@ -55,6 +55,40 @@ class GameController extends BaseController {
 
       $game->save();
     }
+  }
+  
+  // mark the game as finished
+  function end($gameID){
+    
+    $winnerName = "";
+    
+    // find the current game
+    $game = Game::find($gameID);
+    
+    // update the teams stats
+    $teamOne = Team::find($game->team_one_id);
+    $teamTwo = Team::find($game->team_two_id);
+    
+    $teamOne->games_played = $teamOne->games_played+1;
+    $teamTwo->games_played = $teamTwo->games_played+1;
+    
+    // update wins and losses
+    if($game->team_one_score > $game->team_two_score){
+      $teamOne->games_won = $teamOne->games_won+1;
+      $teamTwo->games_lost = $teamTwo->games_lost+1;
+      $winnerName = $teamOne->name;
+    }else{
+      $teamOne->games_lost = $teamOne->games_lost+1;
+      $teamTwo->games_won = $teamTwo->games_won+1;
+      $winnerName = $teamTwo->name;
+    }
+        
+    $teamOne->save();
+    $teamTwo->save();
+    
+    return Redirect::to('/')->withErrors([$winnerName . " won!!", 'msg']);
+    
+    
   }
 
 }

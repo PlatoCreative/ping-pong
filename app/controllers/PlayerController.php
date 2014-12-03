@@ -27,7 +27,7 @@ class PlayerController extends BaseController {
     
     $player->save();
     
-    return Redirect::to('players/create')->withErrors(['Player created', 'msg']);;
+    return Redirect::to('players/create')->withErrors(['Player created', 'msg']);
     
   }
     

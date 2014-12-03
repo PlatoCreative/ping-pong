@@ -10,9 +10,9 @@
   @show
 
 </head>
-<body>
-
-  <h1>Game Setup <small>- Organise your teams</small><h1>
+<body>    
+  <p class="response"><em>@if($errors->any()) {{$errors->first()}} @endif</em></p>    
+    
   <form method="post" action="game/create">
 
     <div class="team-selection">
@@ -32,7 +32,6 @@
       @endforeach
       </ul>
     </div>
-
     <p>
       <label for="game-score">Game score:
         <select name="game-score" id="game-score">
@@ -55,7 +54,7 @@
 
 
     <div class="clear"></div>
-    <button type="submit">Start Game</button>
+    <button id="startGame" type="submit">Start Game</button>
   </form>
 
   @section('scripts')

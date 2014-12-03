@@ -187,3 +187,17 @@ span.gamepoint{
 input#playerName{
   padding: 7px 15px;
 }
+
+.response{
+  font-size: 30px;
+  padding: 5px;
+  margin: 5px;
+  color: #60b044 !important;
+}
+
+
+#startGame{
+  background-color: #60b044;
+  color: #FFF;
+  margin-top: 10px;
+}

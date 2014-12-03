@@ -159,7 +159,7 @@ function teamScore(team, score){
         checkForMatchPoint();
     }else{
         alert("Winner!");
-        window.location = base_url;
+        window.location = base_url+"/game/end/"+gameID;
     }
 
 
