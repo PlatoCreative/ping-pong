@@ -2,32 +2,31 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Laravel PHP Framework</title>
-	
+	<title>Plato Pong</title>
+
 	@section('styles')
 		{{ HTML::style('css/app.css') }}
 		{{ HTML::style('css/flipclock.css') }}
 	@show
 </head>
-<body id="pong-body" onLoad="start()">
-	
+<body id="pong-body" onLoad="start()" data-gameid="{{$game->id}}">
 	<div class="table">
-	
+
 		<div class="left-top">
-			
+
 		</div>
-		
+
 		<div class="right-top">
-			
+
 		</div>
-		
-		
+
+
 		<div class="left-bot">
-			
+
 		</div>
-		
+
 		<div class="right-bot">
-			
+
 		</div>
 
 		<span id="team2" class="gg">{{$game->teamTwo->name}}</span>
@@ -40,7 +39,7 @@
 			<div id="teamone"></div>
 		</div>
 
-			
+
 	</div>
 
 	<button id="but" onclick="start()">Connect</button>
@@ -71,7 +70,7 @@
 				</select>
 			</label>
 		</div>
-		
+
 		<div class="setting-option">
 			<button id="save-settings-button">Save</button>
 		</div>
@@ -81,15 +80,15 @@
 	</div>
 
 	@section('scripts')
-	
+
 		<script>
 		var gameWinningScore = {{Session::get('game-score');}};
 		var soundPack = "{{Session::get('sound-pack');}}";
 		</script>
-	
+
 		{{ HTML::script('/js/jquery-2.1.1.min.js') }}
 		{{ HTML::script('/js/velocity.min.js') }}
-		{{ HTML::script('/js/velocity.ui.min.js') }}		
+		{{ HTML::script('/js/velocity.ui.min.js') }}
 		{{ HTML::script('/js/buzz.min.js') }}
 		{{ HTML::script('/js/flipclock.min.js') }}
 

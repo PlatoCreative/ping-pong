@@ -1,4 +1,7 @@
 var base_url = 'http://pong.platocreative.co.nz';
+//var base_url = 'http://ping-pong.app';
+
+var gameID = $("body").data("gameid");
 
 var soundLibrary;
 var team1Score = 0;
@@ -17,7 +20,7 @@ var team2clock;
 var pointStreak = 0;
 var streakTeam = -1;
 var timeOfLastPoint = 0;
-      
+
 setInterval(onTick, 1000);
 var rallyFired = false;
 
@@ -60,13 +63,13 @@ function settings(){
         loadSoundLibarary(soundPack);
 
     });
-}   
+}
 
 function start() {
-        
+
     team1Score = 0;
     team2Score = 0;
-        
+
     document.getElementById("but").innerHTML = 'Disconnect';
 
     console.log('start');
@@ -81,7 +84,7 @@ function start() {
         autoStart: false
     });
 
-    
+
     loadSoundLibarary(soundPack);
     matchPointScore = gameWinningScore - 1;
 
@@ -91,60 +94,60 @@ function start() {
     var deviceID = "53ff6a066667574811252067";
     var accessToken = "d42e7052ba5fa01bf62834495e34ab39369349ce";
     var eventSource = new EventSource("https://api.spark.io/v1/devices/" + deviceID + "/events/?access_token=" + accessToken);
-        
-        
+
+
     eventSource.addEventListener('open', function(e) {
-        console.log("Opened!"); 
-    },false);
-          
-    eventSource.addEventListener('error', function(e) {
-        console.log("Errored!"); 
+        //console.log("Opened!");
     },false);
 
-            
+    eventSource.addEventListener('error', function(e) {
+        console.log("Errored!");
+    },false);
+
+
     eventSource.addEventListener('Team', function(e) {
-          
+
         var parsedData = JSON.parse(e.data);
-          
+
         console.log(parsedData.data);
-        teamScore(parsedData.data, 1);                
-   
-          
-          
+        teamScore(parsedData.data, 1);
+
+
+
     }, false);
 }
 
 
-function teamScore(team, score){   
+function teamScore(team, score){
 
     soundLibrary.playSoundEvent('score');
-    
+
     if(team == 1){
         team1Score += score;
-        
+
         // ajax request here to update score
         $.ajax({
           type: "POST",
-          url : base_url+"/game/11/score/1",
+          url : base_url+"/game/"+gameID+"/score/1",
           //data : dataString,
           success : function(data){
             console.log(data);
           }
         });
-        
+
     }else if(team == 2){
         team2Score += score;
-        
+
         // ajax request here to update score
         $.ajax({
           type: "POST",
-          url : base_url+"/game/11/score/2",
+          url : base_url+"/game/"+gameID+"/score/2",
           //data : dataString,
           success : function(data){
             console.log(data);
           }
         });
-    
+
     }
 
     team1clock.setTime(team1Score);
@@ -164,8 +167,8 @@ function teamScore(team, score){
     timeOfLastPoint = d.getTime();
     rallyFired = false;
 
-    
-    
+
+
 
 }
 
@@ -243,7 +246,7 @@ function onTick(){
 
 function checkForMatchPoint(){
 
-    
+
 
     $('#teamone .inn').velocity({color:'#ccc'}, {duration: 1000}).velocity("stop");
     $('#teamtwo .inn').velocity({color:'#ccc'}, {duration: 1000}).velocity("stop");
@@ -262,13 +265,13 @@ function checkForMatchPoint(){
 
 function checkForWinner(){
 
-   
+
     if((team1Score == gameWinningScore && team2Score < gameWinningScore - 1) || (team1Score > gameWinningScore && team1Score > team2Score + 1)){
         console.log('game won');
         soundLibrary.playSoundEvent('gameover');
 
-        $('#teamone .inn').velocity("stop");       
-        $('#teamone .inn').css('color', gameWonColor); 
+        $('#teamone .inn').velocity("stop");
+        $('#teamone .inn').css('color', gameWonColor);
 
         return true;
     }
@@ -278,8 +281,8 @@ function checkForWinner(){
         //$('#teamtwo .inn').velocity({color:gameWonColor}, {duration: 1000, loop: true});
         //VELOCITY SEEMS TO ERROR WHILE STOPING AND STARTING A NEW LOOP SO HAVE LEFT FOR NOW
 
-        $('#teamtwo .inn').velocity("stop"); 
-        $('#teamtwo .inn').css('color', gameWonColor);     
+        $('#teamtwo .inn').velocity("stop");
+        $('#teamtwo .inn').css('color', gameWonColor);
 
         return true;
     }
