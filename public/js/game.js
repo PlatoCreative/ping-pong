@@ -1,3 +1,5 @@
+var base_url = 'http://pong.platocreative.co.nz';
+
 var soundLibrary;
 var team1Score = 0;
 var team2Score = 0;
@@ -116,11 +118,33 @@ function start() {
 function teamScore(team, score){   
 
     soundLibrary.playSoundEvent('score');
-
+    
     if(team == 1){
         team1Score += score;
+        
+        // ajax request here to update score
+        $.ajax({
+          type: "POST",
+          url : base_url+"/game/11/score/1",
+          //data : dataString,
+          success : function(data){
+            console.log(data);
+          }
+        });
+        
     }else if(team == 2){
         team2Score += score;
+        
+        // ajax request here to update score
+        $.ajax({
+          type: "POST",
+          url : base_url+"/game/11/score/2",
+          //data : dataString,
+          success : function(data){
+            console.log(data);
+          }
+        });
+    
     }
 
     team1clock.setTime(team1Score);
@@ -130,6 +154,9 @@ function teamScore(team, score){
     checkForSoundEvents(team, score);
     if(!checkForWinner()){
         checkForMatchPoint();
+    }else{
+        alert("Winner!");
+        window.location = base_url;
     }
 
 
@@ -286,10 +313,7 @@ function playAudioQueue(){
             isPlayingSound = false;
         });
 
-
         audioArray.splice(0, 1);
     }
-
-
 
 }
