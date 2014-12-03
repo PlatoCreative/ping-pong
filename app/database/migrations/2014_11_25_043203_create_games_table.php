@@ -13,10 +13,10 @@ class CreateGamesTable extends Migration {
 			$table->increments('id');
 			$table->integer('team_one_score')->default(0);
 			$table->integer('team_two_score')->default(0);
-			$table->integer('team_one')->unsigned();
-			$table->foreign('team_one')->references('id')->on('teams');
-			$table->integer('team_two')->unsigned();
-			$table->foreign('team_two')->references('id')->on('teams');
+			$table->integer('team_one_id')->unsigned();
+			$table->foreign('team_one_id')->references('id')->on('teams');
+			$table->integer('team_two_id')->unsigned();
+			$table->foreign('team_two_id')->references('id')->on('teams');
 			$table->timestamps();
 		});
 		

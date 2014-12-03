@@ -13,5 +13,25 @@
 
 Route::get('/', function()
 {
+	$players = Player::all();
+	
+	return View::make('game.create')->with('players', $players);
+});
+
+// Start game
+Route::post('game/create', array('as' => 'game/create', 'uses' => 'GameController@create'));
+
+
+// Game Route
+Route::get('game/{game}', array('as' => 'game', 'uses' => 'GameController@index'));
+
+// Route for updating game scores
+Route::get('game/{game}/score/{teamPos}', array('as' => 'game/score', 'uses' => 'GameController@updateGameScore'));
+
+
+/*
+Route::get('/', function()
+{
 	return View::make('hello');
 });
+*/

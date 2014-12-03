@@ -30,12 +30,12 @@
 			
 		</div>
 
-		<span id="team2" class="gg">TEAM 2</span>
+		<span id="team2" class="gg">{{$game->teamTwo->name}}</span>
 		<div id="teamtwo-flip-holder">
 			<div id="teamtwo"></div>
 		</div>
 
-		<span id="team1" class="gg">TEAM 1</span>
+		<span id="team1" class="gg">{{$game->teamOne->name}}</span>
 		<div id="teamone-flip-holder">
 			<div id="teamone"></div>
 		</div>
@@ -44,10 +44,10 @@
 	</div>
 
 	<button id="but" onclick="start()">Connect</button>
-	<button id="reset" onclick="reset()">Reset Score</button>
-	<button id="settings-button" onclick="settings()">Settings</button>
+	<!--<button id="reset" onclick="reset()">Reset Score</button>
+	<button id="settings-button" onclick="settings()">Settings</button>-->
 	<button id="fullscreen-button" onclick="fullscreen()">Fullscreen</button>
-	<button id="refresh-button" onclick="refreshPage()">Refresh</button>
+	<a href="/" ><button id="refresh-button"><strong>New Game</strong></button></a>
 
 
 	<div id="settings">
@@ -81,6 +81,12 @@
 	</div>
 
 	@section('scripts')
+	
+		<script>
+		var gameWinningScore = {{Session::get('game-score');}};
+		var soundPack = "{{Session::get('sound-pack');}}";
+		</script>
+	
 		{{ HTML::script('/js/jquery-2.1.1.min.js') }}
 		{{ HTML::script('/js/velocity.min.js') }}
 		{{ HTML::script('/js/velocity.ui.min.js') }}		

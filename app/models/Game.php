@@ -4,14 +4,14 @@ class Game extends Eloquent {
 
 	protected $table = 'games';
 	
-	public function TeamOne()
+	public function teamOne()
 	{
-		return $this->hasOne('Team', 'team_one');
+		return $this->belongsTo('Team', 'team_one_id');
 	}
 	
 	public function teamTwo()
 	{
-		return $this->hasOne('Team', 'team_two');
+		return $this->belongsTo('Team', 'team_two_id');
 	}
 
 }

@@ -2,12 +2,9 @@ var soundLibrary;
 var team1Score = 0;
 var team2Score = 0;
 
-var gameWinningScore = 21;
 var matchPointScore;
 var matchPointColor = '#ae0d0d';
 var gameWonColor = '#37f9ee';
-
-var soundPack = 'default';
 
 var team1 = $("#teamone");
 var team2 = $("#teamtwo");
@@ -83,7 +80,7 @@ function start() {
     });
 
     
-    loadSoundLibarary('default');
+    loadSoundLibarary(soundPack);
     matchPointScore = gameWinningScore - 1;
 
     soundLibrary.playSoundEvent('start');

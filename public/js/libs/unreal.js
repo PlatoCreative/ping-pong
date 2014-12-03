@@ -5,25 +5,25 @@
 
 
 
-    var score = new buzz.sound("sounds/score.mp3");
-    var doubleSound = new buzz.sound("sounds/unreal/double.mp3");
-    var monsterSound = new buzz.sound("sounds/unreal/monster_kill.mp3");
-    var megaSound = new buzz.sound("sounds/unreal/mega_kill.mp3");
-    var multiSound = new buzz.sound("sounds/unreal/multi_kill.mp3");
-    var ultraSound = new buzz.sound("sounds/unreal/ultra_kill.mp3");
+    var score = new buzz.sound("/sounds/score.mp3");
+    var doubleSound = new buzz.sound("/sounds/unreal/double.mp3");
+    var monsterSound = new buzz.sound("/sounds/unreal/monster_kill.mp3");
+    var megaSound = new buzz.sound("/sounds/unreal/mega_kill.mp3");
+    var multiSound = new buzz.sound("/sounds/unreal/multi_kill.mp3");
+    var ultraSound = new buzz.sound("/sounds/unreal/ultra_kill.mp3");
 
-    var unstoppableSound = new buzz.sound("sounds/unreal/unstoppable.mp3");
-    var rampageSound = new buzz.sound("sounds/unreal/rampage.mp3");
-    var godlikeSound = new buzz.sound("sounds/unreal/godlike.mp3");
+    var unstoppableSound = new buzz.sound("/sounds/unreal/unstoppable.mp3");
+    var rampageSound = new buzz.sound("/sounds/unreal/rampage.mp3");
+    var godlikeSound = new buzz.sound("/sounds/unreal/godlike.mp3");
 
 
 
-    var firstBloodSound = new buzz.sound("sounds/unreal/first_blood.mp3");
-    var headshotSound = new buzz.sound("sounds/unreal/headshot.mp3");
-    var impressiveSound = new buzz.sound("sounds/unreal/impressive.mp3");
+    var firstBloodSound = new buzz.sound("/sounds/unreal/first_blood.mp3");
+    var headshotSound = new buzz.sound("/sounds/unreal/headshot.mp3");
+    var impressiveSound = new buzz.sound("/sounds/unreal/impressive.mp3");
 
-    var deniedSound = new buzz.sound("sounds/unreal/denied.mp3");
-    var saveSound = new buzz.sound("sounds/unreal/last_second_save.mp3");
+    var deniedSound = new buzz.sound("/sounds/unreal/denied.mp3");
+    var saveSound = new buzz.sound("/sounds/unreal/last_second_save.mp3");
 
     var _sound_class = UnrealSound.prototype;
 

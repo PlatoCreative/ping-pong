@@ -8,17 +8,17 @@ class Team extends Eloquent {
 	
 	public function playerOne()
 	{
-		return $this->hasOne('Player', 'player_one');
+		return $this->belongsTo('Player', 'player_one_id');
 	}
 	
 	public function playerTwo()
 	{
-		return $this->hasOne('Player', 'player_two');
+		return $this->belongsTo('Player', 'player_two_id');
 	}
 	
-	public function game()
+	public function games()
 	{
-		return $this->belongsTo('Game');
+		return $this->hasMany('Game');
 	}
 
 }

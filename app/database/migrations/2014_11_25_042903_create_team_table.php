@@ -15,10 +15,10 @@ class CreateTeamTable extends Migration {
 			$table->integer('games_played');
 			$table->integer('games_won');
 			$table->integer('games_lost');
-			$table->integer('player_one')->unsigned();
-			$table->foreign('player_one')->references('id')->on('players');
-			$table->integer('player_two')->unsigned();
-			$table->foreign('player_two')->references('id')->on('players');
+			$table->integer('player_one_id')->unsigned();
+			$table->foreign('player_one_id')->references('id')->on('players');
+			$table->integer('player_two_id')->unsigned();
+			$table->foreign('player_two_id')->references('id')->on('players');
 		});
 		
 		

@@ -6,9 +6,9 @@ class Player extends Eloquent {
 	
 	protected $table = 'players';
 	
-	public function team()
+	public function teams()
 	{
-		return $this->belongsTo('Team');
+		return $this->hasMany('Team');
 	}
 	
 }

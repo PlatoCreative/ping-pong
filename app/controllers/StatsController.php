@@ -1,6 +1,6 @@
 <?php
 
-class TeamController extends BaseController {
+class StatsController extends BaseController {
   
-  
+
 }

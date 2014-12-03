@@ -5,7 +5,7 @@
 
 
 
-    var score = new buzz.sound("sounds/score.mp3");
+    var score = new buzz.sound("/sounds/score.mp3");
 
 
 
