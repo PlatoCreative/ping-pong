@@ -37,7 +37,7 @@
 
         switch(eventName) {
             case 'score':
-                score.play();
+                audioArray.push(score);
                 break;
             case 'start':
                 audioArray.push(playBallSound);

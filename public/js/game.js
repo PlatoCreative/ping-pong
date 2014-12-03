@@ -36,6 +36,16 @@ function reset(){
     soundLibrary.playSoundEvent('start');
 }
 
+function fullscreen(){
+    var bd = document.getElementById("pong-body");
+    console.log(bd);
+    bd.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+}
+
+function refreshPage(){
+    location.reload();
+}
+
 function settings(){
     $('#settings').fadeIn(300);
 

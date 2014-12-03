@@ -5,7 +5,7 @@
 
 
 
-    var score = new buzz.sound("sounds/air_horn.mp3");
+    var score = new buzz.sound("sounds/score.mp3");
     var doubleSound = new buzz.sound("sounds/unreal/double.mp3");
     var monsterSound = new buzz.sound("sounds/unreal/monster_kill.mp3");
     var megaSound = new buzz.sound("sounds/unreal/mega_kill.mp3");
@@ -39,7 +39,7 @@
 
         switch(eventName) {
             case 'score':
-                score.play();
+                audioArray.push(score);
                 break;
             case 'ace':
                 audioArray.push(headshotSound);

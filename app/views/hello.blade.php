@@ -9,7 +9,7 @@
 		{{ HTML::style('css/flipclock.css') }}
 	@show
 </head>
-<body onLoad="start()">
+<body id="pong-body" onLoad="start()">
 	
 	<div class="table">
 	
@@ -46,6 +46,8 @@
 	<button id="but" onclick="start()">Connect</button>
 	<button id="reset" onclick="reset()">Reset Score</button>
 	<button id="settings-button" onclick="settings()">Settings</button>
+	<button id="fullscreen-button" onclick="fullscreen()">Fullscreen</button>
+	<button id="refresh-button" onclick="refreshPage()">Refresh</button>
 
 
 	<div id="settings">

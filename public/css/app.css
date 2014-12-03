@@ -120,6 +120,18 @@ button{
   top:63%;
   width: 150px;
 }
+#fullscreen-button{
+  left: 50%;
+  margin-left: -70px;
+  top:56%;
+  width: 150px;
+}
+#refresh-button{
+  left: 50%;
+  margin-left: -70px;
+  top:84%;
+  width: 150px;
+}
 span.gamepoint{
   -webkit-animation-name: pulsate;
   -webkit-animation-duration: 1s;
