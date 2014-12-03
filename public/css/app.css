@@ -17,7 +17,7 @@ body {
   min-height: 1040px;
   max-height: 1040px;
   overflow: hidden;
-  background-color: #2e3f73;
+  background-color: #60b044;
   border: 20px solid #FFF;
   color: #FFF;
   position: relative;
@@ -101,6 +101,8 @@ button{
   padding: 20px 20px;
   font-weight: bold;
   position: absolute;
+  border: none;
+  background-color: rgba(255,255,255,0.7);
 }
 #but{
   left: 50%;
