@@ -26,3 +26,9 @@ Route::get('game/{game}', array('as' => 'game', 'uses' => 'GameController@index'
 
 // Route for updating game scores
 Route::post('game/{game}/score/{teamPos}', array('as' => 'game/score', 'uses' => 'GameController@updateGameScore'));
+
+
+
+// Route for creating users
+Route::get('players/create', array('as' => 'players/create', 'uses' => 'PlayerController@create'));
+Route::post('players/store', array('as' => 'players/store', 'uses' => 'PlayerController@store'));

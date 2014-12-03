@@ -183,3 +183,7 @@ span.gamepoint{
 .checkbox:checked + label {
   color: #60b044;
 }
+
+input#playerName{
+  padding: 7px 15px;
+}
