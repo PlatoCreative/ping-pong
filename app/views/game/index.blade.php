@@ -6,7 +6,6 @@
 
 	@section('styles')
 		{{ HTML::style('css/app.css') }}
-		{{ HTML::style('css/flipclock.css') }}
 	@show
 </head>
 <body id="pong-body" onLoad="start()" data-gameid="{{$game->id}}">
@@ -87,6 +86,7 @@
 		</script>
 
 		{{ HTML::script('/js/jquery-2.1.1.min.js') }}
+		{{ HTML::script('/foundation/js/foundation.js') }}
 		{{ HTML::script('/js/velocity.min.js') }}
 		{{ HTML::script('/js/velocity.ui.min.js') }}
 		{{ HTML::script('/js/buzz.min.js') }}

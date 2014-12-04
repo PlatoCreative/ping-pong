@@ -13,9 +13,12 @@
 
 Route::get('/', function()
 {
-	$players = Player::all();		
+	$players = Player::all();
 	return View::make('game.create')->with('players', $players);
 });
+
+// Dashboard
+Route::get('dashboard', array('as' => 'dashboard', 'uses' => 'DashboardController@index'));
 
 // Start game
 Route::post('game/create', array('as' => 'game/create', 'uses' => 'GameController@create'));

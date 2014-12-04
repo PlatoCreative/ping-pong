@@ -1,3 +1,5 @@
+$(document).foundation();
+
 var base_url = 'http://pong.platocreative.co.nz';
 //var base_url = 'http://ping-pong.app';
 
@@ -320,3 +322,9 @@ function playAudioQueue(){
     }
 
 }
+
+
+// some quick effects
+$('.profiles input[type=checkbox]').change(function() {
+  $(this).closest('label').toggleClass('selected', $(this).is(':checked'));
+});

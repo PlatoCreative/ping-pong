@@ -6,59 +6,89 @@
 
   @section('styles')
   {{ HTML::style('css/app.css') }}
-  {{ HTML::style('css/flipclock.css') }}
   @show
 
 </head>
-<body>    
-  <p class="response"><em>@if($errors->any()) {{$errors->first()}} @endif</em></p>    
-    
-  <form method="post" action="game/create">
+<body class="non-game">
 
-    <div class="team-selection">
+  <form method="post" action="game/create">
+  <div class="row text-left">
+
+    <div class="large-5 players-list columns">
       <h3>Team Two</h3>
-      <ul class="players-list">
+      <ul class="profiles large-block-grid-5">
         @foreach($players as $player)
-        <li><input type="checkbox" class="checkbox" name="team_two[]" id="right_{{ $player->name }}_{{ $player->id }}" value="{{ $player->id }}" /> <label for="right_{{ $player->name }}_{{ $player->id }}">{{ $player->name }}</label></li>
+        <li>
+          <label for="right_{{ $player->name }}_{{ $player->id }}">
+          <div class="text-center"><span class="profile-img"><img src="../images/avatar.png"></span></div>
+          <p class="text-center"><input type="checkbox" class="checkbox" name="team_two[]" id="right_{{ $player->name }}_{{ $player->id }}" value="{{ $player->id }}" />{{ $player->name }}</p>
+          </label>
+        </li>
         @endforeach
       </ul>
     </div>
 
-    <div class="team-selection">
+    <div class="large-2 text-center columns">
+      <br /><br /><br /><br /><br /><br /><br /><br />
+      <h1>-VS-</h1>
+    </div>
+
+    <div class="large-5 players-list columns">
       <h3>Team One</h3>
-      <ul class="players-list">
-      @foreach($players as $player)
-        <li><input type="checkbox" class="checkbox" name="team_one[]" id="left_{{ $player->name }}_{{ $player->id }}" value="{{ $player->id }}" /> <label for="left_{{ $player->name }}_{{ $player->id }}">{{ $player->name }}</label></li>
-      @endforeach
+      <ul class="profiles large-block-grid-5">
+        @foreach($players as $player)
+        <li>
+          <label for="left_{{ $player->name }}_{{ $player->id }}">
+            <div class="text-center"><span class="profile-img"><img src="../images/avatar.png"></span></div>
+            <p class="text-center"><input type="checkbox" class="checkbox" name="team_one[]" id="left_{{ $player->name }}_{{ $player->id }}" value="{{ $player->id }}" />{{ $player->name }}</p>
+          </label>
+        </li>
+        @endforeach
       </ul>
     </div>
-    <p>
-      <label for="game-score">Game score:
-        <select name="game-score" id="game-score">
-          <option value="5">5</option>
-          <option value="11">11</option>
-          <option value="21">21</option>
-        </select>
-      </label>
-    </p>
+  </div>
 
-    <p>
-      <label for="sound-pack">Sound pack:
-        <select name="sound-pack" id="sound-pack">
-          <option value="default">default</option>
-          <option value="unreal">Unreal Tournament</option>
-          <option value="halo">Halo</option>
-        </select>
-      </label>
-    </p>
+  <div class="row">
+    <div class="large-12 columns">
+      <hr />
+    </div>
 
+    <div class="large-6 columns">
+      <p>
+        <label for="game-score">Play to:
+          <select name="game-score" id="game-score">
+            <option value="5">5</option>
+            <option value="11">11</option>
+            <option value="21">21</option>
+          </select>
+        </label>
+      </p>
+    </div>
 
-    <div class="clear"></div>
-    <button id="startGame" type="submit">Start Game</button>
+    <div class="large-6 columns">
+      <p>
+        <label for="sound-pack">Sound pack:
+          <select name="sound-pack" id="sound-pack">
+            <option value="default">default</option>
+            <option value="unreal">Unreal Tournament</option>
+            <option value="halo">Halo</option>
+          </select>
+        </label>
+      </p>
+    </div>
+
+    <div class="large-12 text-center columns">
+      <input id="startGame" type="submit"  class="button expand" value="Begin Game" />
+    </div>
+
+  </div>
+
   </form>
+
 
   @section('scripts')
   {{ HTML::script('/js/jquery-2.1.1.min.js') }}
+  {{ HTML::script('/foundation/js/foundation.js') }}
   {{ HTML::script('/js/velocity.min.js') }}
   {{ HTML::script('/js/velocity.ui.min.js') }}
   {{ HTML::script('/js/buzz.min.js') }}
@@ -71,5 +101,6 @@
 
   {{ HTML::script('/js/game.js') }}
   @show
+
 </body>
 </html>
