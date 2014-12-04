@@ -176,6 +176,12 @@ function teamScore(team, score){
 
 function checkForSoundEvents(team, score){
 
+    //check for shutdown
+    if(team != streakTeam && pointStreak > 2){
+        soundLibrary.playSoundEvent('shutdown');
+    }
+
+
     //check for streaks
     if(team == streakTeam || streakTeam == -1){
         pointStreak += score;
@@ -207,6 +213,11 @@ function checkForSoundEvents(team, score){
 
     if((team1Score == 1 && team2Score == 0) || (team1Score == 0 && team2Score == 1)){
         soundLibrary.playSoundEvent('firstpoint');
+    }
+
+
+     if((team1Score == matchPointScore && team2Score < matchPointScore) || (team2Score == matchPointScore && team1Score < matchPointScore)){
+        soundLibrary.playSoundEvent('matchpoint');
     }
 
 
@@ -301,6 +312,8 @@ function loadSoundLibarary(type){
         soundLibrary = new UnrealSound();
     }else if(type == 'halo'){
         soundLibrary = new HaloSound();
+    }else if(type == 'lol'){
+        soundLibrary = new LolSound();
     }
 }
 

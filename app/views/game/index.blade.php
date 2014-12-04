@@ -96,6 +96,7 @@
 		{{ HTML::script('/js/libs/default.js') }}
 		{{ HTML::script('/js/libs/unreal.js') }}
 		{{ HTML::script('/js/libs/halo.js') }}
+		{{ HTML::script('/js/libs/lol.js') }}
 
 		{{ HTML::script('/js/game.js') }}
 	@show

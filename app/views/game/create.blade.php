@@ -72,6 +72,7 @@
             <option value="default">default</option>
             <option value="unreal">Unreal Tournament</option>
             <option value="halo">Halo</option>
+            <option value="lol">League of Legends</option>
           </select>
         </label>
       </p>
