@@ -4,7 +4,9 @@ class DashboardController extends BaseController {
 
   // basic dashboard
   function index(){
-
+    
+    $topThreeTeams = DB::table('teams')->orderBy('games_won', 'desc')->take(3)->skip(0)->get();
+    
     $totalGames = Game::all()->count();
     $allGames = Game::all();
 
@@ -22,7 +24,8 @@ class DashboardController extends BaseController {
 
     return View::make('dashboard.index')
       ->with("totalGames", $totalGames)
-      ->with("averageGameTime", gmdate("H:i:s", $averageGameTime));
+      ->with("averageGameTime", gmdate("H:i:s", $averageGameTime))
+      ->with("topThreeTeams", $topThreeTeams);
   }
 
 }
