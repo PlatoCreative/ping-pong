@@ -21,9 +21,9 @@
     <div class="large-6 columns">
 
       <div class="alert-box radius">
-        <h3><strong>Top 3 Teams:</strong><br />
+        <h3><strong>Top 5 Teams/Players:</strong><br /><br />
           @foreach($topThreeTeams as $team)
-          {{$team->name}} - {{$team->games_won}} wins & {{$team->games_lost}} loses<br />
+          <strong>{{$team->name}}</strong> - {{$team->games_won}} wins & {{$team->games_lost}} loses<br />
           @endforeach
           </h3>
       </div>
@@ -38,6 +38,14 @@
       
       <div class="alert-box success radius">
         <h3>Average Game Time: <strong>{{$averageGameTime}}</strong></h3>
+      </div>
+      
+      <div class="alert-box success radius">
+        <h3>Not Playing so well: <strong>@foreach($biggestLoser as $loser) {{$loser->name}} - {{$loser->games_lost}} loses  @endforeach</strong></h3>
+      </div>
+      
+      <div class="alert-box success radius">
+        <h3>Best table side: <strong>{{$bestTableSide}}</strong></h3>
       </div>
 
     </div>
