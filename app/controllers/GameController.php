@@ -77,17 +77,22 @@ class GameController extends BaseController {
       $teamOne->games_won = $teamOne->games_won+1;
       $teamTwo->games_lost = $teamTwo->games_lost+1;
       $winnerName = $teamOne->name;
+
+      $game->winning_team_id = $teamOne->id;
+
     }else{
       $teamOne->games_lost = $teamOne->games_lost+1;
       $teamTwo->games_won = $teamTwo->games_won+1;
       $winnerName = $teamTwo->name;
+
+      $game->winning_team_id = $teamTwo->id;
     }
 
     $teamOne->save();
     $teamTwo->save();
+    $game->save();
 
     return Redirect::to('/')->withErrors([$winnerName . " won!!", 'msg']);
-
 
   }
 

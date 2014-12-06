@@ -177,6 +177,128 @@ body.non-game{
   background-color: #FFF;
 }
 
+$dashboard-font: "proxima-nova", 'Helvetica Neue', 'Helvetica', 'sans-serif';
+body.dashboard{
+  background: -webkit-linear-gradient(90deg, #7474BF 10%, #348AC7 90%); /* Chrome 10+, Saf5.1+ */
+  background:    -moz-linear-gradient(90deg, #7474BF 10%, #348AC7 90%); /* FF3.6+ */
+  background:     -ms-linear-gradient(90deg, #7474BF 10%, #348AC7 90%); /* IE10 */
+  background:      -o-linear-gradient(90deg, #7474BF 10%, #348AC7 90%); /* Opera 11.10+ */
+  background:         linear-gradient(90deg, #7474BF 10%, #348AC7 90%); /* W3C */
+  font-family: $dashboard-font;
+
+
+  a.play{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 40px;
+    height: 40px;
+    display: block;
+    z-index: 1000;
+
+    svg{
+      width: 40px;
+      height: 40px;
+
+      path{
+        fill: rgba(255,255,255,0.8);
+      }
+    }
+  }
+
+  a.play:hover{
+    svg{
+      path{
+        fill: rgba(255,255,255,1);
+      }
+    }
+  }
+
+
+  h1{
+    color: #f1f1f1;
+    padding: rem-calc(15 0);
+    font-size: rem-calc(30);
+    margin: rem-calc(0 0 25 0);
+    border-bottom: 2px solid rgba(255,255,255, 0.5);
+    text-shadow: 2px 2px rgba(0,0,0,0.2);
+    font-family: $dashboard-font;
+  }
+
+  h1 small{
+    color: #f1f1f1;
+    text-shadow: 2px 2px rgba(0,0,0,0.2);
+    font-family: $dashboard-font;
+  }
+
+  h2{
+    font-size: rem-calc(18);
+    color: #f1f1f1;
+    padding: rem-calc(10 0);
+    margin: rem-calc(0 0 10 0);
+    border-bottom: 2px solid rgba(255,255,255, 0.5);
+    text-shadow: 1px 1px rgba(0,0,0,0.1);
+    font-family: $dashboard-font;
+  }
+
+  h2 small{
+    color: #f1f1f1;
+    text-shadow: 2px 2px rgba(0,0,0,0.2);
+    font-family: $dashboard-font;
+  }
+
+
+  .alert-box.transparent{
+    background-color: rgba(0,0,0,0.3);
+    border: none;
+    font-weight: 700;
+    font-size: rem-calc(18);
+    font-family: $dashboard-font;
+    color: #f1f1f1;
+
+    h3{
+      font-weight: 700;
+      font-family: $dashboard-font;
+    }
+
+    .up{
+      color: #26A65B;
+      font-size: rem-calc(14);
+    }
+
+    .down{
+      color: #E74C3C;
+      font-size: rem-calc(14);
+    }
+
+  }
+
+  .line-legend li{
+    line-height: 20px;
+    color: #f1f1f1;
+    font-size: rem-calc(11);
+    line-height: rem-calc(14);
+    text-transform: uppercase;
+  }
+
+  .line-legend li span{
+    width: 8px;
+    height: 8px;
+    margin-right: 4px;
+    display: inline-block;
+  }
+
+  .stat{
+    display: block;
+    font-size: rem-calc(12);
+    text-transform: uppercase;
+    padding-bottom: rem-calc(4);
+    font-weight: 400;
+    color: rgba(255,255,255,0.8);
+  }
+
+}
+
 .team-selection{
   width: 50%;
   float: left;
