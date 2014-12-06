@@ -1,7 +1,7 @@
 $(document).foundation();
 
-//var base_url = 'http://pong.platocreative.co.nz';
-var base_url = 'http://ping-pong.app';
+var base_url = 'http://pong.platocreative.co.nz';
+//var base_url = 'http://ping-pong.app';
 
 var gameID = $("body").data("gameid");
 
