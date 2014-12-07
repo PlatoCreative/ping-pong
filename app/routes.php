@@ -28,6 +28,8 @@ Route::get('game/{game}', array('as' => 'game', 'uses' => 'GameController@index'
 
 // Route for updating game scores
 Route::post('game/{game}/score/{teamPos}', array('as' => 'game/score', 'uses' => 'GameController@updateGameScore'));
+Route::get('game/{game}/streak/{teamPos}/{length}', array('as' => 'game/streak', 'uses' => 'GameController@addScoreStreak'));
+
 
 // Mark game as completed/finished
 Route::get('game/end/{game}', array('as' => 'game/end', 'uses' => 'GameController@end'));

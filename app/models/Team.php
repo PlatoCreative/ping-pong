@@ -21,4 +21,8 @@ class Team extends Eloquent {
 		return $this->hasMany('Game');
 	}
 
+	public function streaks(){
+		return $this->hasMany('Streak');
+	}
+
 }

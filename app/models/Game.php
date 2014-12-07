@@ -19,4 +19,8 @@ class Game extends Eloquent {
 		return $this->has_one('Team', 'winning_team_id');
 	}
 
+	public function streaks(){
+		return $this->hasMany('Streak');
+	}
+
 }

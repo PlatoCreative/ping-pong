@@ -178,6 +178,9 @@ function checkForSoundEvents(team, score){
     //check for shutdown
     if(team != streakTeam && pointStreak > 2){
         soundLibrary.playSoundEvent('shutdown');
+
+        //game streak ended - post to server
+        sendGameStreak(team, pointStreak);
     }
 
 
@@ -254,6 +257,18 @@ function onTick(){
         rallyFired = true;
     }
 
+}
+
+function sendGameStreak(team_pos, length){
+
+    $.ajax({
+        type: "GET",
+        url : base_url+"/game/"+gameID+"/streak/" + team_pos + "/" + length,
+        //data : dataString,
+        success : function(data){
+            console.log(data);
+        }
+    });
 }
 
 function checkForMatchPoint(){

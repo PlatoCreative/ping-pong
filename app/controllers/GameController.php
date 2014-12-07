@@ -39,6 +39,29 @@ class GameController extends BaseController {
 
   }
 
+
+  function addScoreStreak($gameID, $teamPos, $length){
+
+
+    // find the current game
+    $game = Game::find($gameID);
+
+    if($teamPos == 1){
+      $team = $game->teamOne;
+    }else{
+      $team = $game->teamTwo;
+    }
+
+    $streak = new Streak;
+    $streak->streak_length = $length;
+    $streak->game()->associate($game);
+    $streak->team()->associate($team);
+
+    $streak->save();
+    
+    return Response::json(array('saved' => true));
+  }
+
   // update the game score
   function updateGameScore($gameID, $teamPos){
 
@@ -55,6 +78,8 @@ class GameController extends BaseController {
 
       $game->save();
     }
+
+    return Response::json(array('saved' => true));
   }
 
   // mark the game as finished

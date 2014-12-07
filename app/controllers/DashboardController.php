@@ -6,7 +6,10 @@ class DashboardController extends BaseController {
   function index(){
 
     // TODO - change to win ratio
-    $topThreeTeams = DB::table('teams')->orderBy('games_won', 'desc')->take(5)->skip(0)->get();
+    //$topThreeTeams = DB::table('teams')->orderBy('games_won', 'desc')->take(5)->skip(0)->get();
+    $topThreeTeams = DB::table('teams')->orderBy(DB::raw('games_won/games_played'), 'desc')->take(5)->get();
+
+
     // TODO - change to loss ratio
     $biggestLoser = DB::table('teams')->orderBy('games_lost', 'desc')->take(1)->skip(0)->get();
 
@@ -102,5 +105,9 @@ class DashboardController extends BaseController {
     return $teams;
 
   }
+
+
+ 
+
 
 }
