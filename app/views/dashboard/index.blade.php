@@ -33,9 +33,18 @@
 
       <div class="alert-box transparent text-left radius">
         <h3>
-          <span class="stat">Top 5 Teams/Players:</span>
-          @foreach($topThreeTeams as $team)
+          <span class="stat">Top 5 Teams:</span>
+          @foreach($topTeams as $team)
           <span class="up">{{$team->games_won}}</span> - <span class="down">{{$team->games_lost}}</span>&nbsp;&nbsp;&nbsp;{{$team->name}}<br />
+          @endforeach
+        </h3>
+      </div>
+      
+      <div class="alert-box transparent text-left radius">
+        <h3>
+          <span class="stat">Top 5 Players:</span>
+          @foreach($topPlayers as $player)
+          <span class="up">{{$player->games_won}}</span> - <span class="down">{{$player->games_lost}}</span>&nbsp;&nbsp;&nbsp;{{$player->name}}<br />
           @endforeach
         </h3>
       </div>
@@ -43,24 +52,44 @@
     </div>
 
     <div class="large-3 columns">
+      
+      <div class="alert-box transparent text-left radius">
+        <h3>
+          <span class="stat">Team Rankings:</span>
+          @foreach($topTeamsELO as $teamELO)
+          <span class="up">{{$teamELO->elo}}</span></span>&nbsp;&nbsp;&nbsp;{{$teamELO->name}}<br />
+          @endforeach
+        </h3>
+      </div>
+      
+      <div class="alert-box transparent text-left radius">
+        <h3>
+          <span class="stat">Player Rankings:</span>
+          @foreach($topPlayersELO as $playerELO)
+          <span class="up">{{$playerELO->elo}}</span>&nbsp;&nbsp;&nbsp;{{$playerELO->name}}<br />
+          @endforeach
+        </h3>
+      </div>
+      
+    </div>
+
+    <div class="large-3 columns">
 
       <div class="alert-box transparent radius">
         <h3><span class="stat">Total Games Played</span> {{$totalGames}}</h3>
       </div>
-      <div class="alert-box transparent radius">
-        <h3><span class="stat">Highest Game Score</span> <em>coming soon...</em></h3>
-      </div>
-
-    </div>
-
-    <div class="large-3 columns">
+      
 
       <div class="alert-box transparent radius">
         <h3><span class="stat">Average Game Time</span> {{$averageGameTime}}</h3>
       </div>
 
       <div class="alert-box transparent radius">
-        <h3><span class="stat">Team With Most <em>Godlikes</em></span> <em>coming soon...</em></h3>
+        <h3><span class="stat">Team With Most <em>Godlikes</em></span> <small><em>coming soon...</em></small></h3>
+      </div>
+      
+      <div class="alert-box transparent radius">
+        <h3><span class="stat">Most Intense Game</span> <small><em>coming soon...</em></small></h3>
       </div>
 
     </div>
@@ -72,6 +101,14 @@
       </div>
       <div class="alert-box transparent radius">
         <h3><span class="stat">Not Playing so well</span> @foreach($biggestLoser as $loser) {{$loser->name}} - {{$loser->games_lost}} loses  @endforeach</h3>
+      </div>
+      
+      <div class="alert-box transparent radius">
+        <h3><span class="stat">Highest Game Score</span> <small><em>coming soon...</em></small></h3>
+      </div>
+      
+      <div class="alert-box transparent radius">
+        <h3><span class="stat">Highest Game Streak</span> <small><em>coming soon...</em></small></h3>
       </div>
 
     </div>

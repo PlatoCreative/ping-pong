@@ -24,5 +24,15 @@ class Team extends Eloquent {
 	public function streaks(){
 		return $this->hasMany('Streak');
 	}
+	
+	public function scopehasoneplayer($query)
+	{
+		return $query->where('player_one_id', '=', DB::raw('player_two_id'));
+	}
+	
+	public function scopehastwoplayers($query)
+	{
+		return $query->where('player_one_id', '!=', DB::raw('player_two_id'));
+	}
 
 }

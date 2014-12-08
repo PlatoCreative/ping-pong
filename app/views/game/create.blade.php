@@ -10,7 +10,7 @@
 
 </head>
 <body class="non-game">
-
+  
   <form method="post" action="game/create">
   <div class="row text-left">
 
@@ -85,6 +85,18 @@
   </div>
 
   </form>
+  
+  @if($errors->any())
+  <div id="winningModal" class="reveal-modal" data-reveal>
+    <h1>Congratulations!</h1>
+    <h3 class="lead"><strong>{{$errors["winningTeam"]}}</strong> just destroyed <em>{{$errors["lossingTeam"]}}</em>.</h3>
+    <!--<p>The score was <strong>21</strong> - <strong>18</strong> and it was 4:45 long.</p>-->
+    <a class="close-reveal-modal">&#215;</a>
+  </div>
+  <script>
+  $('#winningModal').foundation('reveal', 'open');
+  </script>
+  @endif
 
 
   @section('scripts')

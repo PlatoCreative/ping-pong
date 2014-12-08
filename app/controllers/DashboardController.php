@@ -6,12 +6,13 @@ class DashboardController extends BaseController {
   function index(){
 
     // TODO - change to win ratio
-    $topThreeTeams = DB::table('teams')->orderBy('games_won', 'desc')->take(5)->skip(0)->get();
-    //$topThreeTeams = DB::table('teams')->orderBy(DB::raw('games_won/games_played'), 'desc')->take(5)->get();
-
+    $topPlayers = Team::hasoneplayer()->orderBy('games_won', 'desc')->take(5)->get();
+    $topPlayersELO = Team::hasoneplayer()->orderBy('games_won', 'desc')->take(5)->get();
+    $topTeams = Team::hastwoplayers()->orderBy('elo', 'desc')->take(5)->get();
+    $topTeamsELO = Team::hastwoplayers()->orderBy('elo', 'desc')->take(5)->get();
 
     // TODO - change to loss ratio
-    $biggestLoser = DB::table('teams')->orderBy('games_lost', 'desc')->take(1)->skip(0)->get();
+    $biggestLoser = DB::table('teams')->orderBy('games_lost', 'desc')->take(1)->get();
 
     $totalGames = Game::all()->count();
     $allGames = Game::all();
@@ -47,7 +48,10 @@ class DashboardController extends BaseController {
     return View::make('dashboard.index')
       ->with("totalGames", $totalGames)
       ->with("averageGameTime", gmdate("H:i:s", $averageGameTime))
-      ->with("topThreeTeams", $topThreeTeams)
+      ->with("topTeams", $topTeams)
+      ->with("topPlayers", $topPlayers)
+      ->with("topTeamsELO", $topTeamsELO)
+      ->with("topPlayersELO", $topPlayersELO)
       ->with("biggestLoser", $biggestLoser)
       ->with("bestTableSide", $bestTableSide)
       ->with("gamesPerDay", $this->gamesPlayedPerDay(date("y-m-d")))
