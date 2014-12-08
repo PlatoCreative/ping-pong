@@ -5,13 +5,20 @@ class DashboardController extends BaseController {
   // basic dashboard
   function index(){
 
-    // TODO - change to win ratio
-    $topPlayers = Team::hasoneplayer()->orderBy('games_won', 'desc')->take(5)->skip(0)->get();
     $topPlayersELO = Team::hasoneplayer()->orderBy('elo', 'desc')->take(5)->skip(0)->get();
-    $topTeams = Team::hastwoplayers()->orderBy('games_won', 'desc')->take(5)->skip(0)->get();
     $topTeamsELO = Team::hastwoplayers()->orderBy('elo', 'desc')->take(5)->skip(0)->get();
-    
-    
+
+    $teams = Team::hastwoplayers()->get();
+    $players = Team::hasoneplayer()->get();
+
+    $highestStreak = Streak::orderBy('streak_length', 'desc')->get()->first();
+    $highestGameStoreTeamOne = Game::orderBy('team_one_score', 'desc')->get()->first();
+    $highestGameStoreTeamTwo = Game::orderBy('team_two_score', 'desc')->get()->first();
+    if($highestGameStoreTeamOne > $highestGameStoreTeamTwo){
+      $highestGameStore = $highestGameStoreTeamOne->team_one_score;
+    }else{
+      $highestGameStore = $highestGameStoreTeamTwo->team_two_score;
+    }
 
     // TODO - change to loss ratio
     $biggestLoser = DB::table('teams')->orderBy('games_lost', 'desc')->take(1)->get();
@@ -50,15 +57,16 @@ class DashboardController extends BaseController {
     return View::make('dashboard.index')
       ->with("totalGames", $totalGames)
       ->with("averageGameTime", gmdate("H:i:s", $averageGameTime))
-      ->with("topTeams", $topTeams)
-      ->with("topPlayers", $topPlayers)
+      ->with("topTeams", $this->getBestTeams($teams,date("Y-m-d")))
+      ->with("topPlayers", $this->getBestTeams( $players, date("Y-m-d")))
       ->with("topTeamsELO", $topTeamsELO)
       ->with("topPlayersELO", $topPlayersELO)
       ->with("biggestLoser", $biggestLoser)
       ->with("bestTableSide", $bestTableSide)
       ->with("gamesPerDay", $this->gamesPlayedPerDay(date("y-m-d")))
-      ->with('gamesWonPerTeamPerDay', $this->gamesWonPerTeamPerDay(date("y-m-d")));
-
+      ->with('gamesWonPerTeamPerDay', $this->gamesWonPerTeamPerDay(date("y-m-d")))
+      ->with('highestStreak', $highestStreak)
+      ->with('highestGameStore', $highestGameStore);
 
   }
 
@@ -113,7 +121,32 @@ class DashboardController extends BaseController {
   }
 
 
- 
+  function getBestTeams($teams, $start){
+
+    $end = new DateTime($start);
+    $end->modify('-1 week');
+
+    $topTeams = array();
+
+    foreach($teams as $team){
+      $games = Game::where('team_one_id', '=', $team->id)->orWhere('team_two_id', '=', $team->id)->whereBetween('updated_at', array($end, $start))->count();
+      $wins = Game::where('winning_team_id', '=', $team->id)->whereBetween('updated_at', array($end, $start))->count();
+      if($games > 3 && $wins > 0){
+        $winRatio = round(($wins / $games) * 100, 0);
+      }else{
+        //dd($wins);
+        $winRatio = 0;
+      }
+      array_push($topTeams, array("team_id" => $team->id, "name" => $team->name, "ratio" => $winRatio, "games_won" => $team->games_won, "games_lost" => $team->games_lost));
+
+    }
+
+    usort($topTeams, function($a, $b) { return $b["ratio"] - $a["ratio"]; } );
+    $topTeams = array_slice($topTeams, 0, 5);
+
+    return $topTeams;
+
+  }
 
 
 }
