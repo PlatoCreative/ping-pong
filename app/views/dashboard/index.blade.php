@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Plato Pong</title>
 
+  {{ HTML::script('/js/modernizr.js') }}
+
   @section('styles')
   {{ HTML::style('css/app.css') }}
   @show
@@ -33,7 +35,7 @@
 
       <div class="alert-box transparent text-left radius">
         <h3>
-          <span class="stat" title="Win/Game Ratio. Last 7 days.">Top 5 Teams:</span>
+          <span class="stat tool" data-tooltip aria-haspopup="true" class="has-tip tip-top" title="Win/Game Ratio. Last 7 days.">Top 5 Teams:</span>
           @foreach($topTeams as $team)
           <span class="up">{{$team["ratio"]}}%</span> - <span class="up">{{$team["games_won"]}}</span> - <span class="down">{{$team["games_lost"]}}</span>&nbsp;&nbsp;&nbsp;{{$team["name"]}}<br />
           @endforeach
@@ -42,7 +44,7 @@
 
       <div class="alert-box transparent text-left radius">
         <h3>
-          <span class="stat" title="Win/Game Ratio. Last 7 days.">Top 5 Players:</span>
+          <span class="stat tool" data-tooltip aria-haspopup="true" class="has-tip tip-top" title="Win/Game Ratio. Last 7 days.">Top 5 Players:</span>
           @foreach($topPlayers as $player)
           <span class="up">{{$player["ratio"]}}%</span> - <span class="up">{{$player["games_won"]}}</span> - <span class="down">{{$player["games_lost"]}}</span>&nbsp;&nbsp;&nbsp;{{$player["name"]}}<br />
           @endforeach
