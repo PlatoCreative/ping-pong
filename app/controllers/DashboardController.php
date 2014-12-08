@@ -127,17 +127,18 @@ class DashboardController extends BaseController {
     $end->modify('-1 week');
 
     $topTeams = array();
-
+    $winRatio = 0;
     foreach($teams as $team){
       $games = Game::where('team_one_id', '=', $team->id)->orWhere('team_two_id', '=', $team->id)->whereBetween('updated_at', array($end, $start))->count();
       $wins = Game::where('winning_team_id', '=', $team->id)->whereBetween('updated_at', array($end, $start))->count();
+      $loses = Game::where('winning_team_id', '!=', $team->id)->where('team_one_id', '=', $team->id)->orWhere('team_two_id', '=', $team->id)->whereBetween('updated_at', array($end, $start))->count();
       if($games > 3 && $wins > 0){
         $winRatio = round(($wins / $games) * 100, 0);
       }else{
-        //dd($wins);
         $winRatio = 0;
       }
-      array_push($topTeams, array("team_id" => $team->id, "name" => $team->name, "ratio" => $winRatio, "games_won" => $team->games_won, "games_lost" => $team->games_lost));
+
+      array_push($topTeams, array("team_id" => $team->id, "name" => $team->name, "ratio" => $winRatio, "games_won" => $wins, "games_lost" => $loses, "total_games" => $games, "total_wins" => $wins));
 
     }
 
