@@ -24,6 +24,9 @@ class PlayerController extends BaseController {
     
     $player = new Player;
     $player->name = $playerName;
+
+    //give default elo of 100
+    $player->elo = 100;
     
     $player->save();
     

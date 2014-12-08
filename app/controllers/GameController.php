@@ -97,6 +97,9 @@ class GameController extends BaseController {
     $teamOne->games_played = $teamOne->games_played+1;
     $teamTwo->games_played = $teamTwo->games_played+1;
 
+    $teamOnePoints = 0;
+    $teamTwoPoints = 0;
+
     // update wins and losses
     if($game->team_one_score > $game->team_two_score){
       $teamOne->games_won = $teamOne->games_won+1;
@@ -105,17 +108,34 @@ class GameController extends BaseController {
 
       $game->winning_team_id = $teamOne->id;
 
+      $teamOnePoints = 1;
+
     }else{
       $teamOne->games_lost = $teamOne->games_lost+1;
       $teamTwo->games_won = $teamTwo->games_won+1;
       $winnerName = $teamTwo->name;
 
       $game->winning_team_id = $teamTwo->id;
+
+      $teamTwoPoints = 1;
     }
+
+    
+
+
+    //update team ELO
+    File::requireOnce(app_path() . '/includes/elo-rating/src/Rating/Rating.php');
+    
+    $rating = new Rating($teamOne->elo, $teamTwo->elo, $teamOnePoints, $teamTwoPoints);
+    $ratingResults = $rating->getNewRatings();
+
+    $teamOne->elo = $ratingResults['a'];
+    $teamTwo->elo = $ratingResults['b'];
 
     $teamOne->save();
     $teamTwo->save();
     $game->save();
+
 
     return Redirect::to('/')->withErrors([$winnerName . " won!!", 'msg']);
 
