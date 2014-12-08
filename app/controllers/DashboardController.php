@@ -10,6 +10,8 @@ class DashboardController extends BaseController {
     $topPlayersELO = Team::hasoneplayer()->orderBy('games_won', 'desc')->take(10)->skip(0)->get();
     $topTeams = Team::hastwoplayers()->orderBy('elo', 'desc')->take(10)->skip(0)->get();
     $topTeamsELO = Team::hastwoplayers()->orderBy('elo', 'desc')->take(10)->skip(0)->get();
+    
+    dd($topTeams);
 
     // TODO - change to loss ratio
     $biggestLoser = DB::table('teams')->orderBy('games_lost', 'desc')->take(1)->get();
