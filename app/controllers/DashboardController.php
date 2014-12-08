@@ -14,7 +14,7 @@ class DashboardController extends BaseController {
     $queries = DB::getQueryLog();
     $last_query = end($queries);
     
-    dd($topTeams);
+    dd($last_query);
 
     // TODO - change to loss ratio
     $biggestLoser = DB::table('teams')->orderBy('games_lost', 'desc')->take(1)->get();
