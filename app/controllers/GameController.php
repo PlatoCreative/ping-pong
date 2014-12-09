@@ -108,6 +108,7 @@ class GameController extends BaseController {
       $lossingName = $teamTwo->name;
 
       $game->winning_team_id = $teamOne->id;
+      $gameResult = "*" . $game->team_one_score . "* - *" . $game->team_two_score. "*";
 
       $teamOnePoints = 1;
 
@@ -118,12 +119,13 @@ class GameController extends BaseController {
       $lossingName = $teamOne->name;
 
       $game->winning_team_id = $teamTwo->id;
+      $gameResult = "*" . $game->team_two_score . "* - *" . $game->team_one_score. "*";
 
       $teamTwoPoints = 1;
     }
-
     
-
+    // Post to Slack!
+    Slack::send("*" . $winnerName . "* just played against *" . $lossingName . "* and won " . $gameResult);
 
     //update team ELO
     File::requireOnce(app_path() . '/includes/elo-rating/src/Rating/Rating.php');
