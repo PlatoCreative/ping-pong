@@ -38,11 +38,14 @@ class DashboardController extends BaseController {
       }else{
         $teamTwoTotal++;
       }
-
+      
       $gameTime = strtotime($game->updated_at)-strtotime($game->created_at);
-      array_push($gameLength, $gameTime);
+      if($gameTime < 3600){
+        array_push($gameLength, $gameTime);
+      }
+      
     }
-
+    
     $totalGameTime = array_sum($gameLength);
     $averageGameTime = $totalGameTime/$totalGames;
 
@@ -131,7 +134,7 @@ class DashboardController extends BaseController {
     foreach($teams as $team){
       $games = Game::where('team_one_id', '=', $team->id)->orWhere('team_two_id', '=', $team->id)->whereBetween('updated_at', array($end, $start))->count();
       $wins = Game::where('winning_team_id', '=', $team->id)->whereBetween('updated_at', array($end, $start))->count();
-      if($games > 3 && $wins > 0){
+      if($games > 4 && $wins > 0){
         $winRatio = round(($wins / $games) * 100, 0);
       }else{
         $winRatio = 0;
