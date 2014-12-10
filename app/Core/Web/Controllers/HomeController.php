@@ -1,4 +1,4 @@
-<?php
+<?php namespace Web\Controllers;
 
 class HomeController extends BaseController {
 
@@ -17,7 +17,7 @@ class HomeController extends BaseController {
 
 	public function showWelcome()
 	{
-		return View::make('hello');
+		return View::make('Web::hello');
 	}
 
 }

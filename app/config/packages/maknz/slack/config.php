@@ -13,7 +13,7 @@ return [
   |
   */
 
-  'endpoint' => 'https://hooks.slack.com/services/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',
+  'endpoint' => getenv('API_SLACK_ENDPOINT'),
 
   /*
   |-------------------------------------------------------------
@@ -25,7 +25,7 @@ return [
   |
   */
 
-  'channel' => '#ping-pong',
+  'channel' => getenv('API_SLACK_CHANNEL'),
 
   /*
   |-------------------------------------------------------------
@@ -36,7 +36,7 @@ return [
   |
   */
 
-  'username' => 'PingPong',
+  'username' => getenv('API_SLACK_USER'),
 
   /*
   |-------------------------------------------------------------
@@ -48,6 +48,6 @@ return [
   |
   */
 
-  'icon' => null,
+  'icon' => getenv('API_SLACK_ICON'),
 
 ];

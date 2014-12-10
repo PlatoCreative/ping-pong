@@ -1,4 +1,4 @@
-<?php
+<?php namespace Ping\Rating;
 
 /**
  * This class calculates ratings based on the Elo system used in chess.

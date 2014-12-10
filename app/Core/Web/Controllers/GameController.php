@@ -1,4 +1,6 @@
-<?php
+<?php namespace Web\Controllers;
+
+use Ping\Rating\Rating;
 
 class GameController extends BaseController {
 
@@ -7,7 +9,7 @@ class GameController extends BaseController {
 
     $game = Game::find($gameID);
 
-    return View::make('game.index')->withGame($game);
+    return View::make('Web::game.index')->withGame($game);
 
   }
 
@@ -126,9 +128,6 @@ class GameController extends BaseController {
     
     // Post to Slack!
     Slack::send("*" . $winnerName . "* just played against *" . $lossingName . "* and won " . $gameResult);
-
-    //update team ELO
-    File::requireOnce(app_path() . '/includes/elo-rating/src/Rating/Rating.php');
     
     $rating = new Rating($teamOne->elo, $teamTwo->elo, $teamOnePoints, $teamTwoPoints);
     $ratingResults = $rating->getNewRatings();

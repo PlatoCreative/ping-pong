@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => true,
+	'debug' => getenv('APP_DEBUG'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://localhost',
+	'url' => getenv('APP_URL'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -123,6 +123,9 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		
 		'Maknz\Slack\SlackServiceProvider',
+
+		'Ping\Providers\WebServiceProvider',
+		'Ping\Providers\ArtisanServiceProvider',
 
 	),
 

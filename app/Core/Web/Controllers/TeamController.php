@@ -1,4 +1,4 @@
-<?php
+<?php namespace Web\Controllers;
 
 class TeamController extends BaseController {
   

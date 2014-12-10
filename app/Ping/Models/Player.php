@@ -1,4 +1,6 @@
-<?php
+<?php namespace Ping\Models;
+
+use Illuminate\Database\Eloquent;
 
 class Player extends Eloquent {
 	
@@ -8,7 +10,7 @@ class Player extends Eloquent {
 	
 	public function teams()
 	{
-		return $this->hasMany('Team');
+		return $this->hasMany('Ping\Models\Team');
 	}
 	
 }

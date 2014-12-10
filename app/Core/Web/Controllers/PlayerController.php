@@ -1,4 +1,4 @@
-<?php
+<?php namespace Web\Controllers;
 
 class PlayerController extends BaseController {
   
@@ -9,7 +9,7 @@ class PlayerController extends BaseController {
   */
   public function create()
   {
-    return View::make('player.create');  
+    return View::make('Web::player.create');
   }
   
   
