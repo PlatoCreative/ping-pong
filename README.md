@@ -1,19 +1,19 @@
-## Plato Creative Ping-Pong ##
-### Office Ping Pong / Table Tennis application ###
+#Plato Creative Ping-Pong #
+## Office Ping Pong / Table Tennis application ##
 
-####Requirments####
+###Requirments###
 Coming soon.
 
-####Installation####
+###Installation###
 Coming soon.
 
-####Screenshots####
+###Screenshots###
 
-Dashboard Screen:
+####Dashboard Screen:####
 ![alt text](http://i.imgur.com/ZeDe2nz.png "Dashboard Screen")
 
-Create Game Screen:
+####Create Game Screen:####
 ![alt text](http://i.imgur.com/rlq26lZ.png "Create Game Screen")
 
-Game Play Screen:
+####Game Play Screen:####
 ![alt text](http://i.imgur.com/MQl9hNn.png "Game Play Screen")
