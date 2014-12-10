@@ -4,7 +4,7 @@ class DashboardController extends BaseController {
 
   // basic dashboard
   function index(){
-
+        
     $topPlayersELO = Team::hasoneplayer()->orderBy('elo', 'desc')->take(5)->skip(0)->get();
     $topTeamsELO = Team::hastwoplayers()->orderBy('elo', 'desc')->take(5)->skip(0)->get();
 
@@ -69,7 +69,8 @@ class DashboardController extends BaseController {
       ->with("gamesPerDay", $this->gamesPlayedPerDay(date("y-m-d")))
       ->with('gamesWonPerTeamPerDay', $this->gamesWonPerTeamPerDay(date("y-m-d")))
       ->with('highestStreak', $highestStreak)
-      ->with('highestGameStore', $highestGameStore);
+      ->with('highestGameStore', $highestGameStore)
+      ->with('mostGodLikes', $this->getMostGodLikes());
 
   }
 
@@ -148,6 +149,20 @@ class DashboardController extends BaseController {
     return $topTeams;
 
   }
+  
+  
+  function getMostGodLikes(){
+    $result = DB::table('game_streaks')->select(DB::raw('*, COUNT(*) as team_streak_count'))->where('streak_length', '>', '8')->groupBy('team_id')->orderBy('team_streak_count')->take(1)->get(); 
+    foreach($result as $res){
+      $team = Team::where('id', '=', $res->team_id)->first();
+      $godlikes = $res->team_streak_count ;
+    }
+    
+    return array("teamName" => $team->name, "team_streak_count" => $godlikes);
+    
+  }
+  
+  
 
 
 }

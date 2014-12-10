@@ -91,7 +91,7 @@
       </div>
 
       <div class="alert-box transparent radius">
-        <h3><span class="stat">Team With Most <em>Godlikes</em></span> <small><em>coming soon...</em></small></h3>
+        <h3><span class="stat">Team With Most <em>Godlikes</em></span> {{$mostGodLikes['teamName']}} with {{$mostGodLikes['team_streak_count']}}</h3></h3>
       </div>
 
     </div>
