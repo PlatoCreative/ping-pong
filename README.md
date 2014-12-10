@@ -1,5 +1,6 @@
 #Plato Creative Ping-Pong #
 ## Office Ping Pong / Table Tennis application ##
+Powered by Laravel, Spark.io and javascript.
 
 ###Requirments###
 Coming soon.
