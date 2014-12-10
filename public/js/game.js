@@ -31,6 +31,8 @@ setInterval(playAudioQueue, 250);
 var audioArray = [];
 var isPlayingSound = false;
 
+var gameIsOver = false;
+
 function reset(){
     team1clock.setTime(0);
     team2clock.setTime(0);
@@ -124,6 +126,12 @@ function teamScore(team, score){
 
     soundLibrary.playSoundEvent('score');
 
+
+    if(!checkForWinner()){
+        checkForMatchPoint();
+    }
+
+
     if(team == 1){
         team1Score += score;
 
@@ -134,6 +142,9 @@ function teamScore(team, score){
           //data : dataString,
           success : function(data){
             console.log(data);
+            if(gameIsOver){
+                window.location = base_url+"/game/end/"+gameID;
+            }
           }
         });
 
@@ -147,6 +158,9 @@ function teamScore(team, score){
           //data : dataString,
           success : function(data){
             console.log(data);
+            if(gameIsOver){
+                window.location = base_url+"/game/end/"+gameID;
+            }
           }
         });
 
@@ -156,12 +170,7 @@ function teamScore(team, score){
     team2clock.setTime(team2Score);
 
 
-    checkForSoundEvents(team, score);
-    if(!checkForWinner()){
-        checkForMatchPoint();
-    }else{
-        window.location = base_url+"/game/end/"+gameID;
-    }
+    checkForSoundEvents(team, score);    
 
 
     var d = new Date();
@@ -300,6 +309,7 @@ function checkForWinner(){
         $('#teamone .inn').velocity("stop");
         $('#teamone .inn').css('color', gameWonColor);
 
+        gameIsOver = true;
         return true;
     }
 
@@ -311,6 +321,7 @@ function checkForWinner(){
         $('#teamtwo .inn').velocity("stop");
         $('#teamtwo .inn').css('color', gameWonColor);
 
+        gameIsOver = true;
         return true;
     }
 

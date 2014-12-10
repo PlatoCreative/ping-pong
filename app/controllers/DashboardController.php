@@ -61,7 +61,7 @@ class DashboardController extends BaseController {
       ->with("totalGames", $totalGames)
       ->with("averageGameTime", gmdate("H:i:s", $averageGameTime))
       ->with("topTeams", $this->getBestTeams($teams,date("Y-m-d")))
-      ->with("topPlayers", $this->getBestTeams( $players, date("Y-m-d")))
+      ->with("topPlayers", $this->getBestTeams($players, date("Y-m-d")))
       ->with("topTeamsELO", $topTeamsELO)
       ->with("topPlayersELO", $topPlayersELO)
       ->with("biggestLoser", $biggestLoser)
@@ -70,7 +70,8 @@ class DashboardController extends BaseController {
       ->with('gamesWonPerTeamPerDay', $this->gamesWonPerTeamPerDay(date("y-m-d")))
       ->with('highestStreak', $highestStreak)
       ->with('highestGameStore', $highestGameStore)
-      ->with('mostGodLikes', $this->getMostGodLikes());
+      ->with('mostGodLikes', $this->getMostGodLikes()
+      ->with('mostIntenseGame', $this->getMostIntenseGame());
 
   }
 
@@ -134,7 +135,7 @@ class DashboardController extends BaseController {
     $winRatio = 0;
     foreach($teams as $team){
       $games = Game::where('team_one_id', '=', $team->id)->orWhere('team_two_id', '=', $team->id)->whereBetween('updated_at', array($end, $start))->count();
-      $wins = Game::where('winning_team_id', '=', $team->id)->whereBetween('updated_at', array($end, $start))->count();
+      $wins = Game::where('winning_team_id', '=', $team->id)->whereBetween('updated_at', array($start, $end))->count();
       if($games > 4 && $wins > 0){
         $winRatio = round(($wins / $games) * 100, 0);
         $loses = $games-$wins;
@@ -150,12 +151,26 @@ class DashboardController extends BaseController {
 
   }
   
-  
+  function getMostIntenseGame(){
+    
+    // $game = DB::table('games')
+
+
+    // foreach($result as $res){
+    //   $team = Team::where('id', '=', $res->team_id)->first();
+    //   $godlikes = $res->team_streak_count;
+    // }
+    
+    return "";
+    
+  }
+
+
   function getMostGodLikes(){
     $result = DB::table('game_streaks')->select(DB::raw('*, COUNT(*) as team_streak_count'))->where('streak_length', '>', '8')->groupBy('team_id')->orderBy('team_streak_count')->take(1)->get(); 
     foreach($result as $res){
       $team = Team::where('id', '=', $res->team_id)->first();
-      $godlikes = $res->team_streak_count ;
+      $godlikes = $res->team_streak_count;
     }
     
     return array("teamName" => $team->name, "team_streak_count" => $godlikes);
