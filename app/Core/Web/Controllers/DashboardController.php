@@ -1,4 +1,4 @@
-<?php
+<?php namespace Web\Controllers;
 
 class DashboardController extends BaseController {
 
@@ -57,7 +57,7 @@ class DashboardController extends BaseController {
 
     //dd($this->gamesWonPerTeamPerDay(date("y-m-d")));
 
-    return View::make('dashboard.index')
+    return View::make('Web::dashboard.index')
       ->with("totalGames", $totalGames)
       ->with("averageGameTime", gmdate("H:i:s", $averageGameTime))
       ->with("topTeams", $this->getBestTeams($teams,date("Y-m-d 11:59:00")))

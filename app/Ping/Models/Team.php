@@ -1,4 +1,6 @@
-<?php
+<?php namespace Ping\Models;
+
+use Illuminate\Database\Eloquent;
 
 class Team extends Eloquent {
 
@@ -8,21 +10,21 @@ class Team extends Eloquent {
 	
 	public function playerOne()
 	{
-		return $this->belongsTo('Player', 'player_one_id');
+		return $this->belongsTo('Ping\Models\Player', 'player_one_id');
 	}
 	
 	public function playerTwo()
 	{
-		return $this->belongsTo('Player', 'player_two_id');
+		return $this->belongsTo('Ping\Models\Player', 'player_two_id');
 	}
 	
 	public function games()
 	{
-		return $this->hasMany('Game');
+		return $this->hasMany('Ping\Models\Game');
 	}
 
 	public function streaks(){
-		return $this->hasMany('Streak');
+		return $this->hasMany('Ping\Models\Streak');
 	}
 	
 	public function scopehasoneplayer($query)

@@ -124,6 +124,9 @@ return array(
 		
 		'Maknz\Slack\SlackServiceProvider',
 
+		'Ping\Providers\WebServiceProvider',
+		'Ping\Providers\ArtisanServiceProvider',
+
 	),
 
 	/*
