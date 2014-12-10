@@ -136,13 +136,10 @@ class DashboardController extends BaseController {
       $wins = Game::where('winning_team_id', '=', $team->id)->whereBetween('updated_at', array($end, $start))->count();
       if($games > 4 && $wins > 0){
         $winRatio = round(($wins / $games) * 100, 0);
-      }else{
-        $winRatio = 0;
+        $loses = $games-$wins;
+        array_push($topTeams, array("team_id" => $team->id, "name" => $team->name, "ratio" => $winRatio, "games_won" => $wins, "games_lost" => $loses, "total_games" => $games, "total_wins" => $wins));
       }
-      $loses = $games-$wins;
-
-      array_push($topTeams, array("team_id" => $team->id, "name" => $team->name, "ratio" => $winRatio, "games_won" => $wins, "games_lost" => $loses, "total_games" => $games, "total_wins" => $wins));
-
+  
     }
 
     usort($topTeams, function($a, $b) { return $b["ratio"] - $a["ratio"]; } );
