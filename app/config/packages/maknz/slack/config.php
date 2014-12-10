@@ -13,7 +13,7 @@ return [
   |
   */
 
-  'endpoint' => 'https://hooks.slack.com/services/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',
+  'endpoint' => $_ENV['API_SLACK_ENDPOINT'],
 
   /*
   |-------------------------------------------------------------
@@ -25,7 +25,7 @@ return [
   |
   */
 
-  'channel' => '#ping-pong',
+  'channel' => $_ENV['API_SLACK_CHANNEL'],
 
   /*
   |-------------------------------------------------------------
@@ -36,7 +36,7 @@ return [
   |
   */
 
-  'username' => 'PingPong',
+  'username' => $_ENV['API_SLACK_USER'],
 
   /*
   |-------------------------------------------------------------

@@ -83,6 +83,11 @@
 		<script>
 		var gameWinningScore = {{Session::get('game-score');}};
 		var soundPack = "{{Session::get('sound-pack');}}";
+		
+		var base_url = '{{$_ENV['APP_URL']}}';
+		var deviceID = "{{$_ENV['API_SPARK_DEVICE']}}";
+		var accessToken = "{{$_ENV['API_SPARK_ACCESS']}}";
+		
 		</script>
 
 		{{ HTML::script('/js/jquery-2.1.1.min.js') }}

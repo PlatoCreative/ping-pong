@@ -1,8 +1,5 @@
 $(document).foundation();
 
-var base_url = 'http://pong.platocreative.co.nz';
-//var base_url = 'http://ping-pong.app';
-
 var gameID = $("body").data("gameid");
 
 var soundLibrary;
@@ -94,9 +91,6 @@ function start() {
 
     soundLibrary.playSoundEvent('start');
 
-
-    var deviceID = "53ff6a066667574811252067";
-    var accessToken = "d42e7052ba5fa01bf62834495e34ab39369349ce";
     var eventSource = new EventSource("https://api.spark.io/v1/devices/" + deviceID + "/events/?access_token=" + accessToken);
 
 
@@ -125,12 +119,6 @@ function start() {
 function teamScore(team, score){
 
     soundLibrary.playSoundEvent('score');
-
-
-    if(!checkForWinner()){
-        checkForMatchPoint();
-    }
-
 
     if(team == 1){
         team1Score += score;
@@ -165,10 +153,14 @@ function teamScore(team, score){
         });
 
     }
+    
+    if(!checkForWinner()){
+      checkForMatchPoint();
+    }
 
     team1clock.setTime(team1Score);
     team2clock.setTime(team2Score);
-
+    
 
     checkForSoundEvents(team, score);    
 
@@ -177,7 +169,7 @@ function teamScore(team, score){
     timeOfLastPoint = d.getTime();
     rallyFired = false;
 
-
+    
 
 
 }

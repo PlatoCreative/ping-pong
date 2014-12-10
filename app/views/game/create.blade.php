@@ -97,6 +97,12 @@
   $('#winningModal').foundation('reveal', 'open');
   </script>
   @endif
+  
+  <script>  
+  var base_url = '{{$_ENV['APP_URL']}}';
+  var deviceID = "{{$_ENV['API_SPARK_DEVICE']}}";
+  var accessToken = "{{$_ENV['API_SPARK_ACCESS']}}";
+  </script>
 
 
   @section('scripts')
