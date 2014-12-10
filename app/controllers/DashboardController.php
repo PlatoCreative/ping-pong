@@ -70,7 +70,7 @@ class DashboardController extends BaseController {
       ->with('gamesWonPerTeamPerDay', $this->gamesWonPerTeamPerDay(date("y-m-d")))
       ->with('highestStreak', $highestStreak)
       ->with('highestGameStore', $highestGameStore)
-      ->with('mostGodLikes', $this->getMostGodLikes()
+      ->with('mostGodLikes', $this->getMostGodLikes())
       ->with('mostIntenseGame', $this->getMostIntenseGame());
 
   }
