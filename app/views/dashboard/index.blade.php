@@ -110,7 +110,7 @@
       </div>
 
       <div class="alert-box transparent radius">
-        <h3><span class="stat">Most Intense Game</span> <small><em>coming soon...</em></small></h3>
+        <h3><span class="stat">Most Intense Game</span><em>{{ $mostIntenseGame['game']->teamOne->name }} v {{ $mostIntenseGame['game']->teamTwo->name }} <br> ({{ round($mostIntenseGame['points_per_min'], 2) }} PPM)</em></h3>
       </div>
 
     </div>

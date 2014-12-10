@@ -60,18 +60,18 @@ class DashboardController extends BaseController {
     return View::make('dashboard.index')
       ->with("totalGames", $totalGames)
       ->with("averageGameTime", gmdate("H:i:s", $averageGameTime))
-      ->with("topTeams", $this->getBestTeams($teams,date("Y-m-d")))
-      ->with("topPlayers", $this->getBestTeams($players, date("Y-m-d")))
+      ->with("topTeams", $this->getBestTeams($teams,date("Y-m-d 11:59:00")))
+      ->with("topPlayers", $this->getBestTeams($players, date("Y-m-d 11:59:00")))
       ->with("topTeamsELO", $topTeamsELO)
       ->with("topPlayersELO", $topPlayersELO)
       ->with("biggestLoser", $biggestLoser)
       ->with("bestTableSide", $bestTableSide)
-      ->with("gamesPerDay", $this->gamesPlayedPerDay(date("y-m-d")))
-      ->with('gamesWonPerTeamPerDay', $this->gamesWonPerTeamPerDay(date("y-m-d")))
+      ->with("gamesPerDay", $this->gamesPlayedPerDay(date("y-m-d 11:59:00")))
+      ->with('gamesWonPerTeamPerDay', $this->gamesWonPerTeamPerDay(date("y-m-d 11:59:00")))
       ->with('highestStreak', $highestStreak)
       ->with('highestGameStore', $highestGameStore)
       ->with('mostGodLikes', $this->getMostGodLikes())
-      ->with('mostIntenseGame', $this->getMostIntenseGame());
+      ->with('mostIntenseGame', $this->getMostIntenseGame(date("y-m-d 11:59:00")));
 
   }
 
@@ -128,14 +128,17 @@ class DashboardController extends BaseController {
 
   function getBestTeams($teams, $start){
 
-    $end = new DateTime($start);
-    $end->modify('-1 week');
+    $startDate = new DateTime($start);
+    $endDate = new DateTime($start);
+    $endDate->modify('-1 week');
 
     $topTeams = array();
     $winRatio = 0;
     foreach($teams as $team){
-      $games = Game::where('team_one_id', '=', $team->id)->orWhere('team_two_id', '=', $team->id)->whereBetween('updated_at', array($end, $start))->count();
-      $wins = Game::where('winning_team_id', '=', $team->id)->whereBetween('updated_at', array($start, $end))->count();
+      $games = Game::where('team_one_id', '=', $team->id)->orWhere('team_two_id', '=', $team->id)->whereBetween('updated_at', array($endDate, $startDate))->count();
+      $wins = Game::where('winning_team_id', '=', $team->id)->whereBetween('updated_at', array($endDate, $startDate))->count();
+
+
       if($games > 4 && $wins > 0){
         $winRatio = round(($wins / $games) * 100, 0);
         $loses = $games-$wins;
@@ -151,17 +154,40 @@ class DashboardController extends BaseController {
 
   }
   
-  function getMostIntenseGame(){
+  function getMostIntenseGame($start){
     
-    // $game = DB::table('games')
+
+    $startDate = new DateTime($start);
+    $endDate = new DateTime($start);
+    $endDate->modify('-1 week');
 
 
-    // foreach($result as $res){
-    //   $team = Team::where('id', '=', $res->team_id)->first();
-    //   $godlikes = $res->team_streak_count;
-    // }
-    
-    return "";
+    $games = Game::whereBetween('updated_at', array($endDate, $startDate))->get();
+    $topPointsPerMin = 0;
+    $intenseGame;
+
+
+    foreach($games as $game){
+
+        $gamePoints = $game->team_one_score + $game->team_two_score;
+        $updateAt = new DateTime($game->updated_at);
+        $createdAt = new DateTime($game->created_at);
+        $gameTime = $updateAt->format('U') - $createdAt->format('U');
+
+        if($gameTime < 1){
+          continue;
+        }
+        $pointsPerSecond = $gamePoints / $gameTime;
+        $pointsPerMin = $pointsPerSecond * 60;
+
+        if($pointsPerMin > $topPointsPerMin){
+          $intenseGame = $game;
+          $topPointsPerMin = $pointsPerMin;
+        }
+        
+    }
+
+    return array("game" => $intenseGame, "points_per_min" => $topPointsPerMin);
     
   }
 
