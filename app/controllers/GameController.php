@@ -58,7 +58,7 @@ class GameController extends BaseController {
     $streak->team()->associate($team);
 
     $streak->save();
-    
+
     return Response::json(array('saved' => true));
   }
 
@@ -123,13 +123,13 @@ class GameController extends BaseController {
 
       $teamTwoPoints = 1;
     }
-    
+
     // Post to Slack!
     Slack::send("*" . $winnerName . "* just played against *" . $lossingName . "* and won " . $gameResult);
 
     //update team ELO
     File::requireOnce(app_path() . '/includes/elo-rating/src/Rating/Rating.php');
-    
+
     $rating = new Rating($teamOne->elo, $teamTwo->elo, $teamOnePoints, $teamTwoPoints);
     $ratingResults = $rating->getNewRatings();
 
@@ -141,7 +141,7 @@ class GameController extends BaseController {
     $game->save();
 
 
-    return Redirect::to('/')->withErrors(array("winningTeam" => $winnerName, "losingTeam" => $lossingName), "gameResult");
+    return Redirect::to('/')->with("winningTeam", $winnerName);
 
   }
 

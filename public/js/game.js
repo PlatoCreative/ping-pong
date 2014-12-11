@@ -153,24 +153,19 @@ function teamScore(team, score){
         });
 
     }
-    
+
+    team1clock.setTime(team1Score);
+    team2clock.setTime(team2Score);
+
     if(!checkForWinner()){
       checkForMatchPoint();
     }
 
-    team1clock.setTime(team1Score);
-    team2clock.setTime(team2Score);
-    
-
-    checkForSoundEvents(team, score);    
-
+    checkForSoundEvents(team, score);
 
     var d = new Date();
     timeOfLastPoint = d.getTime();
     rallyFired = false;
-
-    
-
 
 }
 
@@ -281,13 +276,16 @@ function checkForMatchPoint(){
 
     if((team1Score == matchPointScore && team2Score < matchPointScore) || (team1Score > matchPointScore && team1Score > team2Score)){
         soundLibrary.playSoundEvent('matchpoint');
-        $('#teamone .inn').velocity({color:matchPointColor}, {duration: 1000, loop: true});
-
+        $('#teamone .inn').css("color", matchPointColor);
+    }else{
+      $('#teamone .inn').css("color", "#000");
     }
 
     if((team2Score == matchPointScore && team1Score < matchPointScore) || (team2Score > matchPointScore && team2Score > team1Score)){
         soundLibrary.playSoundEvent('matchpoint');
-        $('#teamtwo .inn').velocity({color:matchPointColor}, {duration: 1000, loop: true});
+        $('#teamtwo .inn').css("color", matchPointColor);
+    }else{
+      $('#teamtwo .inn').css("color", "#000");
     }
 }
 

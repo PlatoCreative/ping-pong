@@ -107,7 +107,7 @@ button{
   font-weight: bold;
   position: absolute;
   border: none;
-  background-color: rgba(255,255,255,0.7);
+  background-color: rgba(0,0,0,0.5);
 }
 #but{
   left: 50%;
@@ -308,6 +308,10 @@ body.dashboard{
   float: left;
 }
 
+.players-list{
+  margin-top: rem-calc(20);
+}
+
 .players-list input.checkbox{
   opacity: 0;
   height: 0;
@@ -317,13 +321,14 @@ body.dashboard{
 }
 
 .players-list p{
-  font-size: rem-calc(20);
+  font-size: rem-calc(18);
   text-transform: capitalize;
+  color: #f1f1f1;
+  text-shadow: 1px 1px rgba(0,0,0,0.1);
 }
 
-.players-list label.selected {
-  color: #60b044;
-  font-weight: bold;
+.players-list label.selected p {
+  color: #E74C3C !important;
   margin-bottom: 0px;
 }
 
@@ -342,15 +347,15 @@ body.dashboard{
   border-radius: 60%;
   width: 100%;
   height: 100%;
-  background: #fff;
+  background: transparent;
   overflow: hidden;
-  border: 3px solid #333;
+  border: 2px solid rgba(0,0,0,0.3);
   max-width: 300px;
   margin-bottom: 5px;
 }
 
 .players-list label.selected .profile-img{
-  border: 3px solid #60b044;
+  border: 3px solid #E74C3C;
 }
 
 
@@ -371,4 +376,28 @@ input#playerName{
   margin: 0;
   padding: 0;
   font-size: rem-calc(18);
+}
+
+.game-setting label{
+  color: #f1f1f1;
+  text-transform: uppercase;
+  padding: rem-calc(10 0);
+}
+
+.game-setting input[type=radio] + label{
+  font-size: rem-calc(16) !important;
+}
+
+#congrats{
+  color: $black;
+  font-weight: 700;
+  text-shadow: none;
+  font-size: rem-calc(50);
+  padding: 0;
+}
+
+.button.play{
+  background-color: rgba(0,0,0,0.4);
+  border: 1px solid rgba(0,0,0,0.6);
+  color: #f1f1f1;
 }

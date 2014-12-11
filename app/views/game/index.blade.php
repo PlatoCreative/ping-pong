@@ -45,7 +45,7 @@
 	<!--<button id="reset" onclick="reset()">Reset Score</button>
 	<button id="settings-button" onclick="settings()">Settings</button>-->
 	<button id="fullscreen-button" onclick="fullscreen()">Fullscreen</button>
-	<a href="/" ><button id="refresh-button"><strong>New Game</strong></button></a>
+	<!--<a href="/" ><button id="refresh-button"><strong>New Game</strong></button></a>-->
 
 
 	<div id="settings">
@@ -83,11 +83,11 @@
 		<script>
 		var gameWinningScore = {{Session::get('game-score');}};
 		var soundPack = "{{Session::get('sound-pack');}}";
-		
+
 		var base_url = '{{$_ENV['APP_URL']}}';
 		var deviceID = "{{$_ENV['API_SPARK_DEVICE']}}";
 		var accessToken = "{{$_ENV['API_SPARK_ACCESS']}}";
-		
+
 		</script>
 
 		{{ HTML::script('/js/jquery-2.1.1.min.js') }}

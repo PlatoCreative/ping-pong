@@ -14,7 +14,7 @@
 Route::get('/', function()
 {
 	$players = Player::all();
-	return View::make('game.create')->with('players', $players);
+	return View::make('game.create')->with('players', $players)->with('winningTeam', Session::get('winningTeam'));
 });
 
 // Dashboard
