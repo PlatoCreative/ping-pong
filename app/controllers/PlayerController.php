@@ -1,7 +1,7 @@
 <?php
 
 class PlayerController extends BaseController {
-  
+
   /**
   * Show the form for creating a new resource.
   *
@@ -9,10 +9,10 @@ class PlayerController extends BaseController {
   */
   public function create()
   {
-    return View::make('player.create');  
+    return View::make('player.create');
   }
-  
-  
+
+
   /**
   * Store a newly created resource in storage.
   *
@@ -21,17 +21,14 @@ class PlayerController extends BaseController {
   public function store()
   {
     $playerName = Input::get('playerName');
-    
+
     $player = new Player;
     $player->name = $playerName;
 
-    //give default elo of 100
-    $player->elo = 100;
-    
     $player->save();
-    
+
     return Redirect::to('players/create')->withErrors(['Player created', 'msg']);
-    
+
   }
-    
+
 }

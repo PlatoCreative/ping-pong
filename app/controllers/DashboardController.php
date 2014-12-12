@@ -4,7 +4,7 @@ class DashboardController extends BaseController {
 
   // basic dashboard
   function index(){
-        
+
     $topPlayersELO = Team::hasoneplayer()->orderBy('elo', 'desc')->take(5)->skip(0)->get();
     $topTeamsELO = Team::hastwoplayers()->orderBy('elo', 'desc')->take(5)->skip(0)->get();
 
@@ -38,14 +38,14 @@ class DashboardController extends BaseController {
       }else{
         $teamTwoTotal++;
       }
-      
+
       $gameTime = strtotime($game->updated_at)-strtotime($game->created_at);
       if($gameTime < 3600){
         array_push($gameLength, $gameTime);
       }
-      
+
     }
-    
+
     $totalGameTime = array_sum($gameLength);
     $averageGameTime = $totalGameTime/$totalGames;
 
@@ -130,7 +130,7 @@ class DashboardController extends BaseController {
 
     $startDate = new DateTime($start);
     $endDate = new DateTime($start);
-    $endDate->modify('-1 week');
+    $endDate->modify('-5 days');
 
     $topTeams = array();
     $winRatio = 0;
@@ -139,12 +139,12 @@ class DashboardController extends BaseController {
       $wins = Game::where('winning_team_id', '=', $team->id)->whereBetween('updated_at', array($endDate, $startDate))->count();
 
 
-      if($games > 4 && $wins > 0){
+      if($games > 3 && $wins > 0){
         $winRatio = round(($wins / $games) * 100, 0);
         $loses = $games-$wins;
         array_push($topTeams, array("team_id" => $team->id, "name" => $team->name, "ratio" => $winRatio, "games_won" => $wins, "games_lost" => $loses, "total_games" => $games, "total_wins" => $wins));
       }
-  
+
     }
 
     usort($topTeams, function($a, $b) { return $b["ratio"] - $a["ratio"]; } );
@@ -153,9 +153,9 @@ class DashboardController extends BaseController {
     return $topTeams;
 
   }
-  
+
   function getMostIntenseGame($start){
-    
+
 
     $startDate = new DateTime($start);
     $endDate = new DateTime($start);
@@ -184,26 +184,26 @@ class DashboardController extends BaseController {
           $intenseGame = $game;
           $topPointsPerMin = $pointsPerMin;
         }
-        
+
     }
 
     return array("game" => $intenseGame, "points_per_min" => $topPointsPerMin);
-    
+
   }
 
 
   function getMostGodLikes(){
-    $result = DB::table('game_streaks')->select(DB::raw('*, COUNT(*) as team_streak_count'))->where('streak_length', '>', '8')->groupBy('team_id')->orderBy('team_streak_count')->take(1)->get(); 
+    $result = DB::table('game_streaks')->select(DB::raw('*, COUNT(*) as team_streak_count'))->where('streak_length', '>', '8')->groupBy('team_id')->orderBy('team_streak_count')->take(1)->get();
     foreach($result as $res){
       $team = Team::where('id', '=', $res->team_id)->first();
       $godlikes = $res->team_streak_count;
     }
-    
+
     return array("teamName" => $team->name, "team_streak_count" => $godlikes);
-    
+
   }
-  
-  
+
+
 
 
 }
