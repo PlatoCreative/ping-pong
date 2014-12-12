@@ -35,21 +35,21 @@
 
       <div class="alert-box transparent text-left radius">
         <h3>
-          <span class="stat tool" data-tooltip aria-haspopup="true" class="has-tip tip-top" title="Win/Game Ratio. Last 7 days.">Top 5 Teams:</span>
+          <span class="stat tool" data-tooltip aria-haspopup="true" class="has-tip tip-top" title="Win/Game Ratio. Last 5 days.">Top 5 Teams:</span>
           @foreach($topTeams as $team)
-          <span class="up">{{$team["ratio"]}}%</span> - <span class="up">{{$team["games_won"]}}</span> - <span class="down">{{$team["games_lost"]}}</span>&nbsp;&nbsp;&nbsp;{{$team["name"]}}<br />
+          <span class="up">{{$team["ratio"]}}%</span> -- <span class="up wns">{{$team["games_won"]}}</span> - <span class="down">{{$team["games_lost"]}}</span>&nbsp;&nbsp;&nbsp;{{$team["name"]}}<br />
           @endforeach
         </h3>
       </div>
 
-      <div class="alert-box transparent text-left radius">
-        <h3>
-          <span class="stat tool" data-tooltip aria-haspopup="true" class="has-tip tip-top" title="Win/Game Ratio. Last 7 days.">Top 5 Players:</span>
-          @foreach($topPlayers as $player)
-          <span class="up">{{$player["ratio"]}}%</span> - <span class="up">{{$player["games_won"]}}</span> - <span class="down">{{$player["games_lost"]}}</span>&nbsp;&nbsp;&nbsp;{{$player["name"]}}<br />
-          @endforeach
-        </h3>
+      <div class="alert-box transparent radius">
+        <h3><span class="stat">Total Games Played</span> {{$totalGames}}</h3>
       </div>
+      <div class="alert-box transparent radius">
+        <h3><span class="stat">Highest Game Score</span> {{$highestGameStore}}</h3>
+      </div>
+
+
 
     </div>
 
@@ -64,6 +64,38 @@
         </h3>
       </div>
 
+      <div class="alert-box transparent radius">
+        <h3><span class="stat">Average Game Time</span> {{$averageGameTime}}</h3>
+      </div>
+      <div class="alert-box transparent radius">
+        <h3><span class="stat">Not Playing so well</span> @foreach($biggestLoser as $loser) {{$loser->name}} - {{$loser->games_lost}} loses  @endforeach</h3>
+      </div>
+
+    </div>
+
+    <div class="large-3 columns">
+
+      <div class="alert-box transparent text-left radius">
+        <h3>
+          <span class="stat tool" data-tooltip aria-haspopup="true" class="has-tip tip-top" title="Win/Game Ratio. Last 5 days.">Top 5 Players:</span>
+          @foreach($topPlayers as $player)
+          <span class="up">{{$player["ratio"]}}%</span> -- <span class="up wns">{{$player["games_won"]}}</span> - <span class="down">{{$player["games_lost"]}}</span>&nbsp;&nbsp;&nbsp;{{$player["name"]}}<br />
+          @endforeach
+        </h3>
+      </div>
+
+
+      <div class="alert-box transparent radius">
+        <h3><span class="stat">Highest Game Streak</span> {{$highestStreak->streak_length}}</h3>
+      </div>
+      <div class="alert-box transparent radius">
+        <h3><span class="stat">Team With Most <em>Godlikes</em></span> {{$mostGodLikes['teamName']}} with {{$mostGodLikes['team_streak_count']}}</h3></h3>
+      </div>
+
+    </div>
+
+    <div class="large-3 columns">
+
       <div class="alert-box transparent text-left radius">
         <h3>
           <span class="stat">Player Rankings:</span>
@@ -73,42 +105,9 @@
         </h3>
       </div>
 
-    </div>
-
-    <div class="large-3 columns">
-
-      <div class="alert-box transparent radius">
-        <h3><span class="stat">Total Games Played</span> {{$totalGames}}</h3>
-      </div>
-
-
-      <div class="alert-box transparent radius">
-        <h3><span class="stat">Average Game Time</span> {{$averageGameTime}}</h3>
-      </div>
-
-      <div class="alert-box transparent radius">
-        <h3><span class="stat">Highest Game Streak</span> {{$highestStreak->streak_length}}</h3>
-      </div>
-
-      <div class="alert-box transparent radius">
-        <h3><span class="stat">Team With Most <em>Godlikes</em></span> {{$mostGodLikes['teamName']}} with {{$mostGodLikes['team_streak_count']}}</h3></h3>
-      </div>
-
-    </div>
-
-    <div class="large-3 columns">
-
       <div class="alert-box transparent radius">
         <h3><span class="stat">Best table side</span> {{$bestTableSide}}</h3>
       </div>
-      <div class="alert-box transparent radius">
-        <h3><span class="stat">Not Playing so well</span> @foreach($biggestLoser as $loser) {{$loser->name}} - {{$loser->games_lost}} loses  @endforeach</h3>
-      </div>
-
-      <div class="alert-box transparent radius">
-        <h3><span class="stat">Highest Game Score</span> {{$highestGameStore}}</h3>
-      </div>
-
       <div class="alert-box transparent radius">
         <h3><span class="stat">Most Intense Game</span><em>{{ $mostIntenseGame['game']->teamOne->name }} v {{ $mostIntenseGame['game']->teamTwo->name }} <br> ({{ round($mostIntenseGame['points_per_min'], 2) }} PPM)</em></h3>
       </div>
@@ -142,8 +141,8 @@
 
 
   </div>
-  
-  <script>  
+
+  <script>
   var base_url = '{{$_ENV['APP_URL']}}';
   var deviceID = "{{$_ENV['API_SPARK_DEVICE']}}";
   var accessToken = "{{$_ENV['API_SPARK_ACCESS']}}";
@@ -162,15 +161,24 @@
 
   <script>
   var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+
+  var lineColor_1 = randomColor({luminosity: 'bright',hue: 'blue'});
+  var lineColor_2 = randomColor({luminosity: 'bright',hue: 'green'});
+  var lineColor_3 = randomColor({luminosity: 'bright',hue: 'red'});
+  var lineColor_4 = randomColor({luminosity: 'bright',hue: 'yellow'});
+  var lineColor_5 = randomColor({luminosity: 'bright',hue: 'pink'});
+
   var lineChartData = {
     labels : ["Monday","Tuesday","Wednesday","Thursday","Friday"],
     datasets : [
+    <?php $i=0 ?>
     @foreach($gamesWonPerTeamPerDay as $team => $days)
+    <?php $i++ ?>
     {
       label: "{{$team}}",
       fillColor : "rgba(0,0,0,0.2)",
-      strokeColor : randomColor({luminosity: 'light',hue: 'random'}),
-      pointColor : randomColor({luminosity: 'light',hue: 'random'}),
+      strokeColor : lineColor_{{$i}},
+      pointColor : lineColor_{{$i}},
       pointStrokeColor : "#fff",
       data : [
         @foreach($days as $day => $wins)
@@ -187,7 +195,7 @@
     datasets : [
     {
       fillColor : "rgba(0,0,0,0.2)",
-      strokeColor : "rgba(0,0,0,0.2)",
+      strokeColor : "rgba(0,0,0,0.3)",
       highlightFill: "rgba(0,0,0,0.3)",
       highlightStroke: "rgba(0,0,0,0.4)",
       data : [@foreach($gamesPerDay as $dayOfGames => $gamesPerDay) {{$gamesPerDay}}, @endforeach]
@@ -206,7 +214,7 @@
     var myLine = new Chart(ctx).Line(lineChartData, {
       responsive: true,
       scaleFontColor: "rgba(255,255,255, 0.6)",
-      legendTemplate : "<ul class=\"large-block-grid-5 medium-block-grid-5 small-block-grid-2 line-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].pointColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+      legendTemplate : "<ul class=\"large-block-grid-5 medium-block-grid-5 small-block-grid-2 line-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
     });
 
     $("#lineLegend").append(myLine.generateLegend());
