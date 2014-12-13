@@ -219,6 +219,11 @@
 
     $("#lineLegend").append(myLine.generateLegend());
 
+
+    Chart.defaults.global = {
+      scaleSteps: 2
+    }
+
   }
 
 

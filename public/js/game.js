@@ -49,23 +49,6 @@ function refreshPage(){
     location.reload();
 }
 
-function settings(){
-    $('#settings').fadeIn(300);
-
-    $('#save-settings-button').click(function(){
-        $('#settings').fadeOut(300);
-
-        gameWinningScore = $('#game-score').val();
-        console.log(gameWinningScore);
-
-        matchPointScore = gameWinningScore - 1;
-
-        soundPack = $('#sound-pack').val();
-        loadSoundLibarary(soundPack);
-
-    });
-}
-
 function start() {
 
     team1Score = 0;

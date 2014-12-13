@@ -1,5 +1,7 @@
 @import url("//fonts.googleapis.com/css?family=Lato:700");
 
+$dashboard-font: "proxima-nova", 'Helvetica Neue', 'Helvetica', 'sans-serif';
+
 html{
   height: 100%;
 }
@@ -90,12 +92,8 @@ body {
   100% { width:21px;height: 21px;  opacity: 0.0}
 }
 span.gg{
-  margin-top: 100px;
   display: block;
-  width: 50%;
-  text-align:center;
-  float: left;
-  font-size: 60px;
+  font-size: 50px;
 }
 span>span{
   font-size: 500px;
@@ -108,36 +106,6 @@ button{
   position: absolute;
   border: none;
   background-color: rgba(0,0,0,0.5);
-}
-#but{
-  left: 50%;
-  margin-left: -70px;
-  top:77%;
-  width: 150px;
-}
-#reset{
-  left: 50%;
-  margin-left: -70px;
-  top:70%;
-  width: 150px;
-}
-#settings-button{
-  left: 50%;
-  margin-left: -70px;
-  top:63%;
-  width: 150px;
-}
-#fullscreen-button{
-  left: 50%;
-  margin-left: -70px;
-  top:56%;
-  width: 150px;
-}
-#refresh-button{
-  left: 50%;
-  margin-left: -70px;
-  top:84%;
-  width: 150px;
 }
 span.gamepoint{
   -webkit-animation-name: pulsate;
@@ -170,6 +138,15 @@ span.gamepoint{
   height: 60px;
 }
 
+.button.transparent{
+  background-color: rgba(0,0,0,0.5);
+  border: 1px solid rgba(0,0,0,0.8);
+  font-weight: 700;
+  font-size: rem-calc(20);
+  font-family: $dashboard-font;
+  color: #f1f1f1;
+}
+
 
 
 // CREATE GAME
@@ -177,7 +154,6 @@ body.non-game{
   background-color: #FFF;
 }
 
-$dashboard-font: "proxima-nova", 'Helvetica Neue', 'Helvetica', 'sans-serif';
 body.dashboard{
   background: -webkit-linear-gradient(90deg, #7474BF 10%, #348AC7 90%); /* Chrome 10+, Saf5.1+ */
   background:    -moz-linear-gradient(90deg, #7474BF 10%, #348AC7 90%); /* FF3.6+ */

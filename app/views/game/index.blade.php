@@ -8,74 +8,35 @@
 		{{ HTML::style('css/app.css') }}
 	@show
 </head>
-<body id="pong-body" onLoad="start()" data-gameid="{{$game->id}}">
-	<div class="table">
+<body id="pong-body" class="dashboard" onLoad="start()" data-gameid="{{$game->id}}">
 
-		<div class="left-top">
+	<div class="row">
 
-		</div>
-
-		<div class="right-top">
-
-		</div>
-
-
-		<div class="left-bot">
+		<div class="large-6 text-center columns">
+			<h1><span id="team2" class="gg">{{$game->teamTwo->name}} @if($game->teamTwo->elo > $game->teamOne->elo)<small><em>Favourite</em></small>@endif</span></h1>
+			<div id="teamtwo-flip-holder">
+				<div id="teamtwo"></div>
+			</div>
 
 		</div>
-
-		<div class="right-bot">
+		<div class="large-6 text-center columns">
+			<h1><span id="team1" class="gg">{{$game->teamOne->name}} @if($game->teamOne->elo > $game->teamTwo->elo)<small><em>Favourite</em></small>@endif</span></h1>
+			<div id="teamone-flip-holder">
+				<div id="teamone"></div>
+			</div>
 
 		</div>
-
-		<span id="team2" class="gg">{{$game->teamTwo->name}}</span>
-		<div id="teamtwo-flip-holder">
-			<div id="teamtwo"></div>
-		</div>
-
-		<span id="team1" class="gg">{{$game->teamOne->name}}</span>
-		<div id="teamone-flip-holder">
-			<div id="teamone"></div>
-		</div>
-
 
 	</div>
 
-	<button id="but" onclick="start()">Connect</button>
-	<!--<button id="reset" onclick="reset()">Reset Score</button>
-	<button id="settings-button" onclick="settings()">Settings</button>-->
-	<button id="fullscreen-button" onclick="fullscreen()">Fullscreen</button>
-	<!--<a href="/" ><button id="refresh-button"><strong>New Game</strong></button></a>-->
-
-
-	<div id="settings">
-
-		<div class="setting-option">
-			<label for="game-score">Game score:
-				<select name="game-score" id="game-score">
-					<option value="5">5</option>
-					<option value="11">11</option>
-					<option value="21">21</option>
-				</select>
-			</label>
+	<div class="row">
+		<div class="large-12 columns">
+			<ul class="button-group round even-6">
+				<li><a href="javascript:;" id="but" onclick="start()" class="button transparent">Connect</a></li>
+				<li><a href="/game/end/{{$game->id}}" id="refresh-button" class="button transparent">End Game</a></li>
+				<li><a href="javascript:;" id="fullscreen-button" onclick="fullscreen()" class="button transparent">Fullscreen</a></li>
+			</ul>
 		</div>
-
-		<div class="setting-option">
-			<label for="sound-pack">Sound pack:
-				<select name="sound-pack" id="sound-pack">
-					<option value="default">default</option>
-					<option value="unreal">Unreal Tournament</option>
-					<option value="halo">Halo</option>
-				</select>
-			</label>
-		</div>
-
-		<div class="setting-option">
-			<button id="save-settings-button">Save</button>
-		</div>
-
-
-
 	</div>
 
 	@section('scripts')
@@ -87,7 +48,6 @@
 		var base_url = '{{$_ENV['APP_URL']}}';
 		var deviceID = "{{$_ENV['API_SPARK_DEVICE']}}";
 		var accessToken = "{{$_ENV['API_SPARK_ACCESS']}}";
-
 		</script>
 
 		{{ HTML::script('/js/jquery-2.1.1.min.js') }}
