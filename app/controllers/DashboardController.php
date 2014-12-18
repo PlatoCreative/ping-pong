@@ -7,6 +7,9 @@ class DashboardController extends BaseController {
 
     $topPlayersELO = Team::hasoneplayer()->orderBy('elo', 'desc')->take(5)->skip(0)->get();
     $topTeamsELO = Team::hastwoplayers()->orderBy('elo', 'desc')->take(5)->skip(0)->get();
+    
+    $allTopTeamsELO = Team::hastwoplayers()->orderBy('elo', 'desc')->get();
+    $allTopPlayersELO = Team::hasoneplayer()->orderBy('elo', 'desc')->get();
 
     $teams = Team::hastwoplayers()->get();
     $players = Team::hasoneplayer()->get();
@@ -71,7 +74,9 @@ class DashboardController extends BaseController {
       ->with('highestStreak', $highestStreak)
       ->with('highestGameStore', $highestGameStore)
       ->with('mostGodLikes', $this->getMostGodLikes())
-      ->with('mostIntenseGame', $this->getMostIntenseGame(date("y-m-d 11:59:00")));
+      ->with('mostIntenseGame', $this->getMostIntenseGame(date("y-m-d 11:59:00")))
+      ->with('allteamsELO', $allTopTeamsELO)
+      ->with('allplayersELO', $allTopPlayersELO);
 
   }
 
@@ -135,11 +140,11 @@ class DashboardController extends BaseController {
     $topTeams = array();
     $winRatio = 0;
     foreach($teams as $team){
-      $games = Game::where('team_one_id', '=', $team->id)->orWhere('team_two_id', '=', $team->id)->whereBetween('updated_at', array($endDate, $startDate))->count();
-      $wins = Game::where('winning_team_id', '=', $team->id)->whereBetween('updated_at', array($endDate, $startDate))->count();
+      $games = Game::where('team_one_id', '=', $team->id)->orWhere('team_two_id', '=', $team->id)->count();
+      $wins = Game::where('winning_team_id', '=', $team->id)->count();
 
 
-      if($games > 3 && $wins > 0){
+      if($games > 4 && $wins > 0){
         $winRatio = round(($wins / $games) * 100, 0);
         $loses = $games-$wins;
         array_push($topTeams, array("team_id" => $team->id, "name" => $team->name, "ratio" => $winRatio, "games_won" => $wins, "games_lost" => $loses, "total_games" => $games, "total_wins" => $wins));
@@ -162,7 +167,7 @@ class DashboardController extends BaseController {
     $endDate->modify('-1 week');
 
 
-    $games = Game::whereBetween('updated_at', array($endDate, $startDate))->get();
+    $games = Game::get();
     $topPointsPerMin = 0;
     $intenseGame;
 
@@ -193,7 +198,7 @@ class DashboardController extends BaseController {
 
 
   function getMostGodLikes(){
-    $result = DB::table('game_streaks')->select(DB::raw('*, COUNT(*) as team_streak_count'))->where('streak_length', '>', '8')->groupBy('team_id')->orderBy('team_streak_count')->take(1)->get();
+    $result = DB::table('game_streaks')->select(DB::raw('*, COUNT(*) as team_streak_count'))->where('streak_length', '>', '8')->groupBy('team_id')->orderBy('team_streak_count')->get();
     foreach($result as $res){
       $team = Team::where('id', '=', $res->team_id)->first();
       $godlikes = $res->team_streak_count;

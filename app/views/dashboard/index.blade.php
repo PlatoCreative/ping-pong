@@ -35,7 +35,7 @@
 
       <div class="alert-box transparent text-left radius">
         <h3>
-          <span class="stat tool" data-tooltip aria-haspopup="true" class="has-tip tip-top" title="Win/Game Ratio. Last 5 days.">Top 5 Teams:</span>
+          <span class="stat tool" data-tooltip aria-haspopup="true" class="has-tip tip-top" title="Win/Game Ratio.">Top 5 Teams:</span>
           @foreach($topTeams as $team)
           <span class="up">{{$team["ratio"]}}%</span> -- <span class="up wns">{{$team["games_won"]}}</span> - <span class="down">{{$team["games_lost"]}}</span>&nbsp;&nbsp;&nbsp;{{$team["name"]}}<br />
           @endforeach
@@ -77,7 +77,7 @@
 
       <div class="alert-box transparent text-left radius">
         <h3>
-          <span class="stat tool" data-tooltip aria-haspopup="true" class="has-tip tip-top" title="Win/Game Ratio. Last 5 days.">Top 5 Players:</span>
+          <span class="stat tool" data-tooltip aria-haspopup="true" class="has-tip tip-top" title="Win/Game Ratio.">Top 5 Players:</span>
           @foreach($topPlayers as $player)
           <span class="up">{{$player["ratio"]}}%</span> -- <span class="up wns">{{$player["games_won"]}}</span> - <span class="down">{{$player["games_lost"]}}</span>&nbsp;&nbsp;&nbsp;{{$player["name"]}}<br />
           @endforeach
@@ -113,6 +113,10 @@
       </div>
 
     </div>
+    
+    <div class="large-12 columns">
+      <p>&nbsp;</p>
+    </div>
 
   </div>
 
@@ -141,7 +145,39 @@
 
 
   </div>
-
+  <style>
+  .alert-box h3{ margin-left: 10px; display:block;}
+  </style>
+  <div class="row">
+    <div class="large-6 columns">
+      <p>&nbsp;</p>
+      <div class="alert-box transparent text-left radius">
+        <h3>
+          <span class="stat tool" data-tooltip aria-haspopup="true" class="has-tip tip-top" title="ELO Rating.">All Teams ELO:</span>
+          <ol>
+          @foreach($allteamsELO as $allteam)
+          <li style="margin-right: 10px;"><span class="up">{{$allteam->elo}}</span></span>&nbsp;&nbsp;&nbsp;{{$allteam->name}}</li>
+          @endforeach
+          </ol>
+        </h3>
+      </div>
+    </div>
+    <div class="large-6 columns">
+      <p>&nbsp;</p>
+      <div class="alert-box transparent text-left radius">
+        <h3>
+          <span class="stat tool" data-tooltip aria-haspopup="true" class="has-tip tip-top" title="ELO Rating.">All Players ELO:</span>
+          <ol>
+          @foreach($allplayersELO as $allplayer)
+          <li style="margin-right: 10px;"><span class="up">{{$allplayer->elo}}</span></span>&nbsp;&nbsp;&nbsp;{{$allplayer->name}}</li>
+          @endforeach
+        </ol>
+        </h3>
+      </div>
+    </div>
+  </div>
+  
+  
   <script>
   var base_url = '{{$_ENV['APP_URL']}}';
   var deviceID = "{{$_ENV['API_SPARK_DEVICE']}}";
