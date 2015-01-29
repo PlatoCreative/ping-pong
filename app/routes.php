@@ -38,3 +38,7 @@ Route::get('game/end/{game}', array('as' => 'game/end', 'uses' => 'GameControlle
 // Route for creating users
 Route::get('players/create', array('as' => 'players/create', 'uses' => 'PlayerController@create'));
 Route::post('players/store', array('as' => 'players/store', 'uses' => 'PlayerController@store'));
+
+
+//webcam replays
+Route::get('replay', array('as' => 'replay', 'uses' => 'ReplayController@replay'));

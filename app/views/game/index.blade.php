@@ -33,13 +33,31 @@
 		<div class="large-12 columns">
 			<ul class="button-group round even-6">
 				<li><a href="javascript:;" id="but" onclick="start()" class="button transparent">Connect</a></li>
+				<li><a href="javascript:;" id="but" onclick="instantReplay()" class="button transparent">Instant Replay</a></li>
 				<li><a href="/game/end/{{$game->id}}" id="refresh-button" class="button transparent">End Game</a></li>
 				<li><a href="javascript:;" id="fullscreen-button" onclick="fullscreen()" class="button transparent">Fullscreen</a></li>
 			</ul>
 		</div>
 	</div>
 
+	<div id="videoModal" class="reveal-modal xlarge" data-reveal>
+		<video autoplay></video>
+
+		<div class="row">
+			<div class="large-12 columns">
+				<ul class="button-group round even-6">
+					<li><a href="javascript:;" id="but" onclick="replaySlower()" class="button transparent">Slower</a></li>
+					<li><a href="javascript:;" id="but" onclick="replayFaster()" class="button transparent">Faster</a></li>
+					<li><a href="javascript:;" id="but" onclick="replayAgain()" class="button transparent">Play Again</a></li>
+				</ul>
+				<p id="video-playback-speed">Playback speed: 1x</p>
+			</div>
+		</div>
+	</div>
+
 	@section('scripts')
+
+		<script src="//cdn.WebRTC-Experiment.com/RecordRTC.js"></script>
 
 		<script>
 		var gameWinningScore = {{Session::get('game-score');}};
@@ -64,6 +82,7 @@
 		{{ HTML::script('/js/libs/lol.js') }}
 
 		{{ HTML::script('/js/game.js') }}
+		{{ HTML::script('/js/video-replay.js') }}
 	@show
 </body>
 </html>

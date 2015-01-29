@@ -93,6 +93,7 @@ function start() {
         console.log(parsedData.data);
         teamScore(parsedData.data, 1);
 
+        restartAndDestroyRecording();
 
 
     }, false);
