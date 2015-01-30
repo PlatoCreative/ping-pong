@@ -44,10 +44,6 @@ $(document).ready(function(){
 	});
 	
 
-	$('#stop-recording').click(function(){
-    	
-    	
-    });
 
 
 });
@@ -61,16 +57,41 @@ function instantReplay(){
 
        	var recordedBlob = recordRTC.getBlob();
        	recordRTC.getDataURL(function(dataURL) { });
+       	saveVideo(recordedBlob);
+
     });
 
 };
 
 function restartAndDestroyRecording(){
 
-	recordRTC.stopRecording(function() {       	
+	recordRTC.stopRecording(function (videoURL) {
+       	videoPlayer.src = videoURL;
+
+       	var recordedBlob = recordRTC.getBlob();
+       	recordRTC.getDataURL(function(dataURL) { });
+       	saveVideo(recordedBlob);
+
     });
 
-    recordRTC.startRecording();
+    setTimeout(function(){
+    	recordRTC.startRecording();
+    }, 1000);
+    
+}
+
+function saveVideo(videoBlob){
+
+	var formData = new FormData();
+	formData.append('teams', $("#team1").text() + '_' + $("#team2").text());
+	formData.append('gameid', gameID);
+	formData.append('score', team1Score + '-' + team2Score);
+	formData.append('video-blob', videoBlob);
+
+	var request = new XMLHttpRequest();
+	request.open("POST", "/replay/save");
+	request.send(formData);
+
 }
 
 function replaySlower(){
