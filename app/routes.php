@@ -42,4 +42,5 @@ Route::post('players/store', array('as' => 'players/store', 'uses' => 'PlayerCon
 
 //webcam replays
 Route::get('replay', array('as' => 'replay', 'uses' => 'ReplayController@replay'));
+Route::get('replay/game/{game}', array('as' => 'replay/game', 'uses' => 'ReplayController@replayGame'));
 Route::post('replay/save', array('as' => 'replay/save', 'uses' => 'ReplayController@save'));

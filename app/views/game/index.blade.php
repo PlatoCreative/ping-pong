@@ -13,14 +13,14 @@
 	<div class="row">
 
 		<div class="large-6 text-center columns">
-			<h1><span id="team2" class="gg">{{$game->teamTwo->name}} @if($game->teamTwo->elo > $game->teamOne->elo)<small><em>Favourite</em></small>@endif</span></h1>
+			<h1><span id="team2" data-team-name="{{$game->teamTwo->name}}" class="gg">{{$game->teamTwo->name}} @if($game->teamTwo->elo > $game->teamOne->elo)<small><em>Favourite</em></small>@endif</span></h1>
 			<div id="teamtwo-flip-holder">
 				<div id="teamtwo"></div>
 			</div>
 
 		</div>
 		<div class="large-6 text-center columns">
-			<h1><span id="team1" class="gg">{{$game->teamOne->name}} @if($game->teamOne->elo > $game->teamTwo->elo)<small><em>Favourite</em></small>@endif</span></h1>
+			<h1><span id="team1" data-team-name="{{$game->teamOne->name}}" class="gg">{{$game->teamOne->name}} @if($game->teamOne->elo > $game->teamTwo->elo)<small><em>Favourite</em></small>@endif</span></h1>
 			<div id="teamone-flip-holder">
 				<div id="teamone"></div>
 			</div>

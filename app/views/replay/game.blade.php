@@ -14,14 +14,25 @@
 	<div class="row">
 		<div class="large-12 columns">
 	      <div class="row">
-	      	 @foreach($games as $game)
-	      	 	<a href="/replay/game/{{ $game->id }}">
-		        	<div class="large-3 columns">
-		          		<h2>Game {{ $game->id }}</h2>
-		          		<p>{{$game->teamTwo->name}} v {{$game->teamOne->name}}</p>
-		        	</div>
-	        	</a>
-	        @endforeach
+          <h1>Game {{ $game->id }} - {{ $game->teamOne->name }} vs {{ $game->teamTwo->name}}</h1>
+          <div class="large-2 columns">      	  
+
+            <ul>
+              @foreach($videos as $video)
+              <li>
+                <a class="video-link" data-video-src="{{ $video }}" href="javascript:;">{{ basename($video,'.webm') }}</a>
+              </li>
+              @endforeach
+            </ul>  
+          </div>
+
+          <div class="large-12 columns">         
+
+            <video id='video-player' autoplay controls>
+              <source src="{{ $videos[0] }}" type="video/webm">
+            </video>
+          </div>
+
 	      </div>
 	       
 

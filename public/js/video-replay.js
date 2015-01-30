@@ -44,6 +44,11 @@ $(document).ready(function(){
 	});
 	
 
+	$('.video-link').click(function(){
+
+		$("#video-player > source").attr("src", $(this).attr('data-video-src'));​
+		return false;
+	});
 
 
 });
@@ -83,7 +88,7 @@ function restartAndDestroyRecording(){
 function saveVideo(videoBlob){
 
 	var formData = new FormData();
-	formData.append('teams', $("#team1").text() + '_' + $("#team2").text());
+	formData.append('teams', $("#team1").attr('data-team-name').trim() + '_' + $("#team2").attr('data-team-name').trim());
 	formData.append('gameid', gameID);
 	formData.append('score', team1Score + '-' + team2Score);
 	formData.append('video-blob', videoBlob);

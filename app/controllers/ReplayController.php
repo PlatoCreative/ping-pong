@@ -5,11 +5,35 @@ class ReplayController extends BaseController {
 
   function replay(){
 
+    $lastGames = Game::take(20)->orderBy('created_at', 'DESC')->get();
    
-    return View::make('replay.index');
+    return View::make('replay.index')->with('games', $lastGames);
 
   }
 
+  function replayGame($gameID){
+
+    $game = Game::find($gameID);
+    $today = strtolower(date("D-M-d"));
+    $teams = strtolower(str_replace(' ', '_', trim($game->teamOne->name) . '_' . trim($game->teamTwo->name)));
+
+
+    //get videos generated for the game
+    $gameDir = public_path() . '/videos/' . $today . '/' . $game->id . '-' . $teams;
+
+    $videoFiles = File::files($gameDir);
+    
+    for($i = 0; $i < count($videoFiles); $i++){
+      $videoFiles[$i] = $this->path_to_link($videoFiles[$i]);
+    }
+    
+    return View::make('replay.game')->withGame($game)->withVideos($videoFiles)->with('gameDir', $gameDir);
+
+  }
+
+  function path_to_link($path){
+    return  substr($path,strlen($_SERVER['DOCUMENT_ROOT'])); 
+  }
 
   function save(){
 
