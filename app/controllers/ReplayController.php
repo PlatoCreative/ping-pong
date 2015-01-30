@@ -23,9 +23,12 @@ class ReplayController extends BaseController {
 
     $videoFiles = File::files($gameDir);
     
+    var_dump($videoFiles)
     for($i = 0; $i < count($videoFiles); $i++){
       $videoFiles[$i] = $this->path_to_link($videoFiles[$i]);
     }
+
+    dd($videoFiles);
     
     return View::make('replay.game')->withGame($game)->withVideos($videoFiles)->with('gameDir', $gameDir);
 
