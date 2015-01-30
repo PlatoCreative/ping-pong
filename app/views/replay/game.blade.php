@@ -28,9 +28,8 @@
 
           <div class="large-12 columns">         
 
-            <video id='video-player' autoplay controls>
-              <source src="{{ $videos[0] }}" type="video/webm">
-            </video>
+            <video id='video-player' src="{{ $videos[0] }}" autoplay controls>
+             </video>
           </div>
 
 	      </div>
@@ -44,6 +43,7 @@
   var base_url = '{{$_ENV['APP_URL']}}';
   var deviceID = "{{$_ENV['API_SPARK_DEVICE']}}";
   var accessToken = "{{$_ENV['API_SPARK_ACCESS']}}";
+  
   </script>
 
   @section('scripts')
@@ -51,6 +51,18 @@
   {{ HTML::script('/foundation/js/foundation.js') }}
   {{ HTML::script('/js/velocity.min.js') }}
   {{ HTML::script('/js/velocity.ui.min.js') }}
+
+  <script>
+
+    $(document).ready(function(){
+    $('.video-link').click(function(){
+
+      console.log('new source = ' + $(this).attr('data-video-src'));
+      $("#video-player").attr("src", $(this).attr('data-video-src'));
+      return false;
+    });
+  });
+  </script>
 
   @show
 

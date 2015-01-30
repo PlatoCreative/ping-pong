@@ -44,11 +44,6 @@ $(document).ready(function(){
 	});
 	
 
-	$('.video-link').click(function(){
-
-		$("#video-player > source").attr("src", $(this).attr('data-video-src'));​
-		return false;
-	});
 
 
 });

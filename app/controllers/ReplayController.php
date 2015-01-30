@@ -22,21 +22,19 @@ class ReplayController extends BaseController {
     $gameDir = public_path() . '/videos/' . $today . '/' . $game->id . '-' . $teams;
 
     $videoFiles = File::files($gameDir);
-    
-    var_dump($videoFiles);
-    
+
+
     for($i = 0; $i < count($videoFiles); $i++){
       $videoFiles[$i] = $this->path_to_link($videoFiles[$i]);
     }
 
-    dd($videoFiles);
     
     return View::make('replay.game')->withGame($game)->withVideos($videoFiles)->with('gameDir', $gameDir);
 
   }
 
   function path_to_link($path){
-    return  substr($path,strlen($_SERVER['DOCUMENT_ROOT'])); 
+    return  '/' . substr($path,strlen($_SERVER['DOCUMENT_ROOT'])); 
   }
 
   function save(){
