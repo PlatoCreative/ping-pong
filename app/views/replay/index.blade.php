@@ -11,23 +11,28 @@
 </head>
 <body class="non-game dashboard">
 
-	<div class="row">
-		<div class="large-12 columns">
-	      <div class="row">
-	      	 @foreach($games as $game)
-	      	 	<a href="/replay/game/{{ $game->id }}">
-		        	<div class="large-3 columns">
-		          		<h2>Game {{ $game->id }}</h2>
-		          		<p>{{$game->teamTwo->name}} v {{$game->teamOne->name}}</p>
-		        	</div>
-	        	</a>
-	        @endforeach
-	      </div>
-	       
+  <div class="row">
+    <div class="large-12 columns">
+      <h1>Ping Pong Replays <small>Plato Creative</small></h1>
+    </div>
+    <div class="large-12 columns">
+        <div class="row">
+           @foreach($games as $game)
+             <a href="/replay/game/{{ $game->id }}">
+              <div class="large-3 columns">
+                <div class="alert-box transparent radius">
+                  <h3>Game {{ $game->id }}</h3>
+                  <h3><span class="stat">{{$game->teamTwo->name}} v {{$game->teamOne->name}}</span></h3>
+                </div>
+              </div>
+            </a>
+          @endforeach
+        </div>
 
-	    </div>
-	</div>
-  
+
+      </div>
+  </div>
+
 
   <script>
   var base_url = '{{$_ENV['APP_URL']}}';
@@ -43,7 +48,7 @@
 
   @show
 
-  
+
 
 </body>
 </html>
