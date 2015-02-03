@@ -17,7 +17,7 @@
           <div class="large-12 columns">
             <h1>Game {{ $game->id }} - <small>{{ $game->teamOne->name }} vs {{ $game->teamTwo->name}}</small></h1>
           </div>
-          <div class="large-6 medium-6 small-12 column">
+          <div class="large-4 medium-4 small-12 column">
             <div class="row">
 
               @foreach($videos as $video)
@@ -32,7 +32,7 @@
 
           </div>
 
-          <div class="large-6 medium-6 small-12 column">
+          <div class="large-8 medium-8 small-12 column">
             <div class="alert-box transparent radius">
               <span class="stat">Instant Replay</span>
               <video id='video-player' src="{{ $videos[0] }}" autoplay controls>
